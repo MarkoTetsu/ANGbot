@@ -152,7 +152,7 @@ public class ANGBot extends TelegramLongPollingBot {
     }
 
     //Timer tracking the start day and time
-    private void startTimer(Message message){
+    private void startTimer(final Message message){
         LocalDateTime gameDateTime = LocalDateTime.of(startYear, startMonth, startDay, startHour, startMinute);
         ZoneId zoneId = ZoneId.systemDefault();
         long presetTime = gameDateTime.atZone(zoneId).toEpochSecond() * 1000;
@@ -175,7 +175,7 @@ public class ANGBot extends TelegramLongPollingBot {
     }
 
     //Tasks timer
-    private void tasksTimer(Message message){
+    private void tasksTimer(final Message message){
         try{
             Timer taskTimer = taskTimerList.get(gameDataIndex(message));
             taskTimer.schedule(new TimerTask() {
