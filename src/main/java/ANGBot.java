@@ -30,9 +30,9 @@ public class ANGBot extends TelegramLongPollingBot {
     private int         startHour           = 20;
     private int         startMinute         = 25;
     private long        twentyMinutesMilli  = 1200000;
-    private ArrayList<Long>     chatIdList          = new ArrayList<>();
-    private ArrayList<GameData> gameDataList        = new ArrayList<>();
-    private ArrayList<Timer>    taskTimerList       = new ArrayList<>();
+    private ArrayList<Long>     chatIdList          = new ArrayList<Long>();
+    private ArrayList<GameData> gameDataList        = new ArrayList<GameData>();
+    private ArrayList<Timer>    taskTimerList       = new ArrayList<Timer>();
     private TasksAccess tasksAccess = new TasksAccess();
     private Properties tasksFile;
 
