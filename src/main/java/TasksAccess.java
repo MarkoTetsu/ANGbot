@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.Properties;
 
 public class TasksAccess {
-    private final String sFileName = "resources/tasks.properties";
+    private final String sFileName = "src/main/resources/tasks.properties";
     private String sDirSeparator = System.getProperty("file.separator");
 
     //Read properties file
