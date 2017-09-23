@@ -1,1 +1,1 @@
-worker: sh target/bin/ANGbot-1.0
+worker: java -cp target/classes:/target/dependency/* Main
