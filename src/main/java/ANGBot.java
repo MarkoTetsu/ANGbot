@@ -67,6 +67,11 @@ public class ANGBot extends TelegramLongPollingBot {
                 sendMsg(message, "Игра начнется " + sDate + " в " + sTime);
             }
 
+            if (message.getText().equals("/gl")){
+                tasksFile = tasksAccess.getTasks();
+                sendMsg(message, tasksFile.getProperty("gamelegend"));
+            }
+
             if ((currentTime.getHour() >= startHour) || (currentTime.getHour() < 8)) {
                 if (isGameStarted){
                     int index = gameDataIndex(message);
