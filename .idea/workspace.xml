@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d1cee280-8994-4b67-84d8-3db3b8068f18" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ANGBot.java" afterPath="$PROJECT_DIR$/src/main/java/ANGBot.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/tasks.properties" afterPath="$PROJECT_DIR$/target/classes/tasks.properties" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,17 +30,17 @@
       <file leaf-file-name="ANGBot.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/ANGBot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="567">
-              <caret line="60" column="12" lean-forward="true" selection-start-line="60" selection-start-column="12" selection-end-line="60" selection-end-column="12" />
+            <state relative-caret-position="294">
+              <caret line="59" column="13" lean-forward="true" selection-start-line="59" selection-start-column="13" selection-end-line="59" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1544#1550#0" expanded="true" />
                 <element signature="e#1621#1631#0" expanded="true" />
                 <element signature="e#1702#1709#0" expanded="true" />
-                <element signature="e#8415#8833#0" expanded="true" />
-                <element signature="e#8832#8833#0" expanded="true" />
-                <element signature="e#9159#10662#0" expanded="true" />
-                <element signature="e#10661#10662#0" expanded="true" />
+                <element signature="e#8403#8821#0" expanded="true" />
+                <element signature="e#8820#8821#0" expanded="true" />
+                <element signature="e#9147#10650#0" expanded="true" />
+                <element signature="e#10649#10650#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -448,7 +448,14 @@
       <option name="project" value="LOCAL" />
       <updated>1506167771591</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Добавил команды /when и /chatid">
+      <created>1506171738049</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1506171738049</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -490,7 +497,8 @@
     <MESSAGE value="date 22.09.2017" />
     <MESSAGE value="Изменил кодировку файла properties.&#10;Также изменил procfile" />
     <MESSAGE value="Добавил команду /when" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавил команду /when" />
+    <MESSAGE value="Добавил команды /when и /chatid" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавил команды /when и /chatid" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -556,10 +564,10 @@
             <element signature="e#1544#1550#0" expanded="true" />
             <element signature="e#1621#1631#0" expanded="true" />
             <element signature="e#1702#1709#0" expanded="true" />
-            <element signature="e#8415#8833#0" expanded="true" />
-            <element signature="e#8832#8833#0" expanded="true" />
-            <element signature="e#9159#10662#0" expanded="true" />
-            <element signature="e#10661#10662#0" expanded="true" />
+            <element signature="e#8403#8821#0" expanded="true" />
+            <element signature="e#8820#8821#0" expanded="true" />
+            <element signature="e#9147#10650#0" expanded="true" />
+            <element signature="e#10649#10650#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -623,10 +631,10 @@
             <element signature="e#1544#1550#0" expanded="true" />
             <element signature="e#1621#1631#0" expanded="true" />
             <element signature="e#1702#1709#0" expanded="true" />
-            <element signature="e#8415#8833#0" expanded="true" />
-            <element signature="e#8832#8833#0" expanded="true" />
-            <element signature="e#9159#10662#0" expanded="true" />
-            <element signature="e#10661#10662#0" expanded="true" />
+            <element signature="e#8403#8821#0" expanded="true" />
+            <element signature="e#8820#8821#0" expanded="true" />
+            <element signature="e#9147#10650#0" expanded="true" />
+            <element signature="e#10649#10650#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -650,10 +658,10 @@
             <element signature="e#1544#1550#0" expanded="true" />
             <element signature="e#1621#1631#0" expanded="true" />
             <element signature="e#1702#1709#0" expanded="true" />
-            <element signature="e#8415#8833#0" expanded="true" />
-            <element signature="e#8832#8833#0" expanded="true" />
-            <element signature="e#9159#10662#0" expanded="true" />
-            <element signature="e#10661#10662#0" expanded="true" />
+            <element signature="e#8403#8821#0" expanded="true" />
+            <element signature="e#8820#8821#0" expanded="true" />
+            <element signature="e#9147#10650#0" expanded="true" />
+            <element signature="e#10649#10650#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -717,10 +725,10 @@
             <element signature="e#1544#1550#0" expanded="true" />
             <element signature="e#1621#1631#0" expanded="true" />
             <element signature="e#1702#1709#0" expanded="true" />
-            <element signature="e#8415#8833#0" expanded="true" />
-            <element signature="e#8832#8833#0" expanded="true" />
-            <element signature="e#9159#10662#0" expanded="true" />
-            <element signature="e#10661#10662#0" expanded="true" />
+            <element signature="e#8403#8821#0" expanded="true" />
+            <element signature="e#8820#8821#0" expanded="true" />
+            <element signature="e#9147#10650#0" expanded="true" />
+            <element signature="e#10649#10650#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -840,17 +848,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ANGBot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="60" column="12" lean-forward="true" selection-start-line="60" selection-start-column="12" selection-end-line="60" selection-end-column="12" />
+        <state relative-caret-position="294">
+          <caret line="59" column="13" lean-forward="true" selection-start-line="59" selection-start-column="13" selection-end-line="59" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1544#1550#0" expanded="true" />
             <element signature="e#1621#1631#0" expanded="true" />
             <element signature="e#1702#1709#0" expanded="true" />
-            <element signature="e#8415#8833#0" expanded="true" />
-            <element signature="e#8832#8833#0" expanded="true" />
-            <element signature="e#9159#10662#0" expanded="true" />
-            <element signature="e#10661#10662#0" expanded="true" />
+            <element signature="e#8403#8821#0" expanded="true" />
+            <element signature="e#8820#8821#0" expanded="true" />
+            <element signature="e#9147#10650#0" expanded="true" />
+            <element signature="e#10649#10650#0" expanded="true" />
           </folding>
         </state>
       </provider>
