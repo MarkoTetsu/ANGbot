@@ -4,7 +4,6 @@
     <list default="true" id="d1cee280-8994-4b67-84d8-3db3b8068f18" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ANGBot.java" afterPath="$PROJECT_DIR$/src/main/java/ANGBot.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/tasks.properties" afterPath="$PROJECT_DIR$/src/main/resources/tasks.properties" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -31,17 +30,17 @@
       <file leaf-file-name="ANGBot.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/ANGBot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="714">
-              <caret line="67" column="13" lean-forward="true" selection-start-line="67" selection-start-column="13" selection-end-line="67" selection-end-column="13" />
+            <state relative-caret-position="651">
+              <caret line="64" column="70" lean-forward="true" selection-start-line="64" selection-start-column="70" selection-end-line="64" selection-end-column="70" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1544#1550#0" expanded="true" />
                 <element signature="e#1621#1631#0" expanded="true" />
                 <element signature="e#1702#1709#0" expanded="true" />
-                <element signature="e#8236#8654#0" expanded="true" />
-                <element signature="e#8653#8654#0" expanded="true" />
-                <element signature="e#8980#10483#0" expanded="true" />
-                <element signature="e#10482#10483#0" expanded="true" />
+                <element signature="e#8245#8663#0" expanded="true" />
+                <element signature="e#8662#8663#0" expanded="true" />
+                <element signature="e#8989#10492#0" expanded="true" />
+                <element signature="e#10491#10492#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -435,7 +434,14 @@
       <option name="project" value="LOCAL" />
       <updated>1506166997055</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Добавил команду /when">
+      <created>1506167624086</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1506167624086</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -476,7 +482,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="date 22.09.2017" />
     <MESSAGE value="Изменил кодировку файла properties.&#10;Также изменил procfile" />
-    <option name="LAST_COMMIT_MESSAGE" value="Изменил кодировку файла properties.&#10;Также изменил procfile" />
+    <MESSAGE value="Добавил команду /when" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавил команду /when" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -542,10 +549,10 @@
             <element signature="e#1544#1550#0" expanded="true" />
             <element signature="e#1621#1631#0" expanded="true" />
             <element signature="e#1702#1709#0" expanded="true" />
-            <element signature="e#8236#8654#0" expanded="true" />
-            <element signature="e#8653#8654#0" expanded="true" />
-            <element signature="e#8980#10483#0" expanded="true" />
-            <element signature="e#10482#10483#0" expanded="true" />
+            <element signature="e#8245#8663#0" expanded="true" />
+            <element signature="e#8662#8663#0" expanded="true" />
+            <element signature="e#8989#10492#0" expanded="true" />
+            <element signature="e#10491#10492#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -609,10 +616,10 @@
             <element signature="e#1544#1550#0" expanded="true" />
             <element signature="e#1621#1631#0" expanded="true" />
             <element signature="e#1702#1709#0" expanded="true" />
-            <element signature="e#8236#8654#0" expanded="true" />
-            <element signature="e#8653#8654#0" expanded="true" />
-            <element signature="e#8980#10483#0" expanded="true" />
-            <element signature="e#10482#10483#0" expanded="true" />
+            <element signature="e#8245#8663#0" expanded="true" />
+            <element signature="e#8662#8663#0" expanded="true" />
+            <element signature="e#8989#10492#0" expanded="true" />
+            <element signature="e#10491#10492#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -636,10 +643,10 @@
             <element signature="e#1544#1550#0" expanded="true" />
             <element signature="e#1621#1631#0" expanded="true" />
             <element signature="e#1702#1709#0" expanded="true" />
-            <element signature="e#8236#8654#0" expanded="true" />
-            <element signature="e#8653#8654#0" expanded="true" />
-            <element signature="e#8980#10483#0" expanded="true" />
-            <element signature="e#10482#10483#0" expanded="true" />
+            <element signature="e#8245#8663#0" expanded="true" />
+            <element signature="e#8662#8663#0" expanded="true" />
+            <element signature="e#8989#10492#0" expanded="true" />
+            <element signature="e#10491#10492#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -703,10 +710,10 @@
             <element signature="e#1544#1550#0" expanded="true" />
             <element signature="e#1621#1631#0" expanded="true" />
             <element signature="e#1702#1709#0" expanded="true" />
-            <element signature="e#8236#8654#0" expanded="true" />
-            <element signature="e#8653#8654#0" expanded="true" />
-            <element signature="e#8980#10483#0" expanded="true" />
-            <element signature="e#10482#10483#0" expanded="true" />
+            <element signature="e#8245#8663#0" expanded="true" />
+            <element signature="e#8662#8663#0" expanded="true" />
+            <element signature="e#8989#10492#0" expanded="true" />
+            <element signature="e#10491#10492#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -791,14 +798,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Procfile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="36" lean-forward="false" selection-start-line="0" selection-start-column="36" selection-end-line="0" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/TasksAccess.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-39">
@@ -815,6 +814,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Procfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="36" lean-forward="false" selection-start-line="0" selection-start-column="36" selection-end-line="0" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/tasks.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="609">
@@ -825,17 +832,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ANGBot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="67" column="13" lean-forward="true" selection-start-line="67" selection-start-column="13" selection-end-line="67" selection-end-column="13" />
+        <state relative-caret-position="651">
+          <caret line="64" column="70" lean-forward="true" selection-start-line="64" selection-start-column="70" selection-end-line="64" selection-end-column="70" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1544#1550#0" expanded="true" />
             <element signature="e#1621#1631#0" expanded="true" />
             <element signature="e#1702#1709#0" expanded="true" />
-            <element signature="e#8236#8654#0" expanded="true" />
-            <element signature="e#8653#8654#0" expanded="true" />
-            <element signature="e#8980#10483#0" expanded="true" />
-            <element signature="e#10482#10483#0" expanded="true" />
+            <element signature="e#8245#8663#0" expanded="true" />
+            <element signature="e#8662#8663#0" expanded="true" />
+            <element signature="e#8989#10492#0" expanded="true" />
+            <element signature="e#10491#10492#0" expanded="true" />
           </folding>
         </state>
       </provider>
