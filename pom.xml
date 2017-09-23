@@ -45,7 +45,7 @@
                     <programs>
                         <program>
                             <mainClass>Main</mainClass>
-                            <name>ANGbot</name>
+                            <name>worker</name>
                         </program>
                     </programs>
                 </configuration>

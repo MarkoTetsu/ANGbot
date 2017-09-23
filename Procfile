@@ -1,1 +1,1 @@
-worker: sh target/bin/ANGbot
+worker: sh target/bin/worker
