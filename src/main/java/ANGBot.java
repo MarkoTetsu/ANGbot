@@ -67,10 +67,6 @@ public class ANGBot extends TelegramLongPollingBot {
                 sendMsg(message, "Игра начнется " + sDate + " в " + sTime);
             }
 
-            if (message.getText().equals("/id")){
-                sendMsg(message, String.valueOf(message.getChatId()));
-            }
-
             if ((currentTime.getHour() >= startHour) || (currentTime.getHour() < 8)) {
                 if (isGameStarted){
                     int index = gameDataIndex(message);
