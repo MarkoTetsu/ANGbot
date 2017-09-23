@@ -1,1 +1,1 @@
-web: java -jar target/ANGbot-1.0.jar
+worker: sh target/bin/ANGbot-1.0
