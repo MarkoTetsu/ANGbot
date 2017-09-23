@@ -64,7 +64,7 @@ public class ANGBot extends TelegramLongPollingBot {
                 getStartDateTime();
                 String sTime = addZero(startHour) + ":" + addZero(startMinute);
                 String sDate = startDay + "." + addZero(startMonth) + "." + startYear;
-                sendMsg(message, "Игра начнется " + sDate + " в " + sTime);
+                sendMsg(message, "Игра начнется в " + sDate + " в " + sTime);
             }
 
             if (message.getText().equals("/gl")){
