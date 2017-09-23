@@ -59,10 +59,6 @@ public class ANGBot extends TelegramLongPollingBot {
                 sendMsg(message, sDate);
             }
 
-            if (message.getText().equals("/chatid")){
-                sendMsg(message, String.valueOf(message.getChatId()));
-            }
-
             if (message.getText().equals("/when")){
                 tasksFile = tasksAccess.getTasks();
                 getStartDateTime();
