@@ -47,10 +47,6 @@
                             <mainClass>Main</mainClass>
                             <name>ANGbot</name>
                         </program>
-                        <program>
-                            <mainClass>OneOffProcess</mainClass>
-                            <name>oneoff</name>
-                        </program>
                     </programs>
                 </configuration>
                 <executions>
