@@ -22,6 +22,7 @@ public class ANGBot extends TelegramLongPollingBot {
     private boolean     isStartCodeCommand  = false;
     private boolean     isChatIdCommand     = false;
     private boolean     isGameStarted       = false;
+    private boolean     isGameEnded         = false;
     private String      adminPassword       = "password";
     private String      startCode           = "startcode";
     private int         startYear           = 2017;
@@ -84,14 +85,12 @@ public class ANGBot extends TelegramLongPollingBot {
                             gameDataList.get(index).setTaskNumber(taskNumber);
                             gameDataList.get(index).setHintNumber(1);
                             taskTimerList.get(index).cancel();
-                            if (taskNumber != 6){
-                                taskTimerList.set(index, new Timer());
-                                tasksTimer(message);
-                            }
                             key = "task" + taskNumber;
                             sendMsg(message, tasksFile.getProperty(key));
-
+                            taskTimerList.set(index, new Timer());
+                            tasksTimer(message);
                         } else {
+                            isGameEnded = true;
                             gameOver(message);
                         }
 
