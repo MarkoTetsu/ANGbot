@@ -23,6 +23,8 @@ public class ANGBot extends TelegramLongPollingBot {
     private boolean     isChatIdCommand     = false;
     private boolean     isGameStarted       = false;
     private boolean     isGameEnded         = false;
+    private boolean     isTaskTimer         = false;
+    private boolean     isHintTimer         = false;
     private String      adminPassword       = "password";
     private String      startCode           = "startcode";
     private int         startYear           = 2017;
@@ -30,7 +32,7 @@ public class ANGBot extends TelegramLongPollingBot {
     private int         startDay            = 16;
     private int         startHour           = 20;
     private int         startMinute         = 25;
-    private long        twentyMinutesMilli  = 1200000;
+    private long        twentyMinutesMilli  = 120000;
     private ArrayList<Long>     chatIdList          = new ArrayList<Long>();
     private ArrayList<GameData> gameDataList        = new ArrayList<GameData>();
     private ArrayList<Timer>    taskTimerList       = new ArrayList<Timer>();
@@ -90,7 +92,6 @@ public class ANGBot extends TelegramLongPollingBot {
                             taskTimerList.set(index, new Timer());
                             tasksTimer(message);
                         } else {
-                            isGameEnded = true;
                             gameOver(message);
                         }
 
@@ -178,6 +179,7 @@ public class ANGBot extends TelegramLongPollingBot {
                     sendMsg(message, tasksFile.getProperty("task1"));
                     isGameStarted = true;
                     gameDataList.get(gameDataIndex(message)).setHintNumber(1);
+                    isHintTimer = true;
                     tasksTimer(message);
                 }
             }, new Date(presetTime));
@@ -196,24 +198,30 @@ public class ANGBot extends TelegramLongPollingBot {
                     int index = gameDataIndex(message);
                     int taskNumber = gameDataList.get(index).getTaskNumber();
                     int hintNumber = gameDataList.get(index).getHintNumber();
-                    if (hintNumber != 0 && hintNumber < 3){
+                    if (isHintTimer){
                         String key = "hint" + taskNumber + "." + hintNumber;
                         sendMsg(message, tasksFile.getProperty(key));
                         hintNumber++;
                         gameDataList.get(index).setHintNumber(hintNumber);
+                        if (hintNumber == 3){
+                            isHintTimer = false;
+                            isTaskTimer = true;
+                        }
                         tasksTimer(message);
-                    } else if (hintNumber == 3) {
+                    } else if (isTaskTimer) {
                         int penaltyTime = gameDataList.get(index).getPenaltyTime_min() + 15;
                         gameDataList.get(index).setPenaltyTime_min(penaltyTime);
                         hintNumber = 1;
                         gameDataList.get(index).setHintNumber(hintNumber);
                         taskNumber++;
-                        if (taskNumber != 7){
+                        isTaskTimer = false;
+                        isHintTimer = true;
+                        if (!isGameEnded && taskNumber != 7){
                             String key = "task" + taskNumber;
                             sendMsg(message, tasksFile.getProperty(key));
                             gameDataList.get(index).setTaskNumber(taskNumber);
                             tasksTimer(message);
-                        } else {
+                        } else if (taskNumber == 7){
                             gameOver(message);
                         }
                     }
@@ -242,6 +250,9 @@ public class ANGBot extends TelegramLongPollingBot {
         } else {
             sendMsg(message, text + " минуты.");
         }
+        isHintTimer = false;
+        isTaskTimer = false;
+        isGameEnded = true;
     }
     //Return the last digit of a number
     private int lastDigit(int value){
