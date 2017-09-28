@@ -8,10 +8,8 @@ public class TasksAccess {
     //Read properties file
     public Properties getTasks(){
         Properties props = new Properties();
-        File currentDir = new File(".");
         try {
-            String sFilePath = currentDir.getCanonicalPath() + sDirSeparator + sFileName;
-            FileInputStream ins = new FileInputStream(sFilePath);
+            InputStream ins = getClass().getResourceAsStream("tasks.properties");
             props.load(ins);
             ins.close();
         } catch (FileNotFoundException e) {
