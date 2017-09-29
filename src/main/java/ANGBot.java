@@ -38,6 +38,14 @@ public class ANGBot extends TelegramLongPollingBot {
     private ArrayList<Timer>    taskTimerList       = new ArrayList<Timer>();
     private TasksAccess tasksAccess = new TasksAccess();
     private Properties tasksFile;
+    //Keys for properties
+    private final String START_DATE          = "START_DATE";
+    private final String START_TIME          = "START_TIME";
+    private final String START_CODE          = "START_CODE";
+    private final String GAME_LEGEND         = "GAME_LEGEND";
+    private final String TASK                = "TASK";
+    private final String HINT                = "HINT";
+    private final String TASK_CODE           = "TASK_CODE";
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -72,22 +80,22 @@ public class ANGBot extends TelegramLongPollingBot {
 
             if (message.getText().equals("/gl")){
                 tasksFile = tasksAccess.getTasks();
-                sendMsg(message, tasksFile.getProperty("gamelegend"));
+                sendMsg(message, tasksFile.getProperty(GAME_LEGEND));
             }
 
             if ((currentTime.getHour() >= startHour) || (currentTime.getHour() < 8)) {
                 if (isGameStarted){
                     int index = gameDataIndex(message);
-                    String key = "taskcode" + gameDataList.get(index).getTaskNumber();
+                    String key = TASK_CODE + "_" + gameDataList.get(index).getTaskNumber();
                     String taskCode = tasksFile.getProperty(key);
                     if (message.getText().equals(taskCode)){
                         sendMsg(message, "Вы ответили правильно");
                         int taskNumber = gameDataList.get(index).getTaskNumber() + 1;
-                        if (taskNumber < 7){
+                        if (taskNumber < 8){
                             gameDataList.get(index).setTaskNumber(taskNumber);
                             gameDataList.get(index).setHintNumber(1);
                             taskTimerList.get(index).cancel();
-                            key = "task" + taskNumber;
+                            key = TASK + "_" + taskNumber;
                             sendMsg(message, tasksFile.getProperty(key));
                             taskTimerList.set(index, new Timer());
                             tasksTimer(message);
@@ -135,7 +143,7 @@ public class ANGBot extends TelegramLongPollingBot {
                     if (isStartCodeCommand && !isStartCodeMode){
                         if (!isFirstStartCode){
                             tasksFile = tasksAccess.getTasks();
-                            startCode = tasksFile.getProperty("startcode");
+                            startCode = tasksFile.getProperty(START_CODE);
                             isFirstStartCode = true;
                         }
                         isStartCodeMode = true;
@@ -175,8 +183,8 @@ public class ANGBot extends TelegramLongPollingBot {
             newTimer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    sendMsg(message, tasksFile.getProperty("gamelegend"));
-                    sendMsg(message, tasksFile.getProperty("task1"));
+                    sendMsg(message, tasksFile.getProperty(GAME_LEGEND));
+                    sendMsg(message, tasksFile.getProperty(TASK + "_" + "1"));
                     isGameStarted = true;
                     gameDataList.get(gameDataIndex(message)).setHintNumber(1);
                     isHintTimer = true;
@@ -199,7 +207,7 @@ public class ANGBot extends TelegramLongPollingBot {
                     int taskNumber = gameDataList.get(index).getTaskNumber();
                     int hintNumber = gameDataList.get(index).getHintNumber();
                     if (isHintTimer){
-                        String key = "hint" + taskNumber + "." + hintNumber;
+                        String key = HINT + "_" + taskNumber + "_" + hintNumber;
                         sendMsg(message, tasksFile.getProperty(key));
                         hintNumber++;
                         gameDataList.get(index).setHintNumber(hintNumber);
@@ -216,12 +224,12 @@ public class ANGBot extends TelegramLongPollingBot {
                         taskNumber++;
                         isTaskTimer = false;
                         isHintTimer = true;
-                        if (!isGameEnded && taskNumber != 7){
-                            String key = "task" + taskNumber;
+                        if (!isGameEnded && taskNumber != 8){
+                            String key = TASK + "_" + taskNumber;
                             sendMsg(message, tasksFile.getProperty(key));
                             gameDataList.get(index).setTaskNumber(taskNumber);
                             tasksTimer(message);
-                        } else if (taskNumber == 7){
+                        } else if (taskNumber == 8){
                             gameOver(message);
                         }
                     }
@@ -291,8 +299,8 @@ public class ANGBot extends TelegramLongPollingBot {
 
     //Get date and time variables
     private void getStartDateTime(){
-        String fullDate = tasksFile.getProperty("startdate");
-        String fullTime = tasksFile.getProperty("starttime");
+        String fullDate = tasksFile.getProperty(START_DATE);
+        String fullTime = tasksFile.getProperty(START_TIME);
         startDay = Integer.valueOf(fullDate.substring(0, 2));
         startMonth = Integer.valueOf(fullDate.substring(3, 5));
         startYear = Integer.valueOf(fullDate.substring(6, 10));
