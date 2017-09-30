@@ -98,7 +98,7 @@ public class ANGBot extends TelegramLongPollingBot {
                         if (taskNumber < 8){
                             gameDataList.get(index).setTaskNumber(taskNumber);
                             gameDataList.get(index).setHintNumber(1);
-
+                            taskTimerList.get(index).cancel();
                             key = TASK + "_" + taskNumber;
                             sendMsg(message, tasksFile.getProperty(key));
                             taskTimerList.set(index, new Timer());
@@ -228,7 +228,7 @@ public class ANGBot extends TelegramLongPollingBot {
                         taskNumber++;
                         isTaskTimer = false;
                         isHintTimer = true;
-                        if (/*!isGameEnded &&*/ taskNumber != 8){
+                        if (/*!isGameEnded &&*/ taskNumber < 8){
                             String key = TASK + "_" + taskNumber;
                             sendMsg(message, tasksFile.getProperty(key));
                             gameDataList.get(index).setTaskNumber(taskNumber);
