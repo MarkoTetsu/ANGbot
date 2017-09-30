@@ -62,6 +62,7 @@ public class ANGBot extends TelegramLongPollingBot {
             if (message.getText().equals("/time")){
                 String sTime = currentDateTime.getHour() + ":" + addZero(currentDateTime.getMinute());
                 sendMsg(message, sTime);
+                sendMsg(message, String.valueOf(gameDataIndex(message)));
             }
 
             if (message.getText().equals("/date")){
@@ -70,6 +71,9 @@ public class ANGBot extends TelegramLongPollingBot {
                 sendMsg(message, sDate);
             }
 
+            if (message.getText().equals("/chatid")){
+                sendMsg(message, String.valueOf(message.getChatId()));
+            }
             if (message.getText().equals("/when")){
                 tasksFile = tasksAccess.getTasks();
                 getStartDateTime();
@@ -84,7 +88,7 @@ public class ANGBot extends TelegramLongPollingBot {
             }
 
             if ((currentTime.getHour() >= startHour) || (currentTime.getHour() < 8)) {
-                if (isGameStarted){
+                if (isGameStarted && isChatInGame(message)){
                     int index = gameDataIndex(message);
                     String key = TASK_CODE + "_" + gameDataList.get(index).getTaskNumber();
                     String taskCode = tasksFile.getProperty(key);
@@ -94,15 +98,15 @@ public class ANGBot extends TelegramLongPollingBot {
                         if (taskNumber < 8){
                             gameDataList.get(index).setTaskNumber(taskNumber);
                             gameDataList.get(index).setHintNumber(1);
-                            taskTimerList.get(index).cancel();
+
                             key = TASK + "_" + taskNumber;
                             sendMsg(message, tasksFile.getProperty(key));
                             taskTimerList.set(index, new Timer());
                             tasksTimer(message);
                         } else {
+                            taskTimerList.get(index).cancel();
                             gameOver(message);
                         }
-
                     }
                 }
             }
@@ -125,7 +129,7 @@ public class ANGBot extends TelegramLongPollingBot {
             sendMsg(message, "Здравствуйте, вас приветствует команда Alternative Night Game.");
         } else {
             if (!isAdminMode && isChatIdCommand){
-                sendMsg(message, String.valueOf(message.getChatId()));
+                //sendMsg(message, String.valueOf(message.getChatId()));
             } else {
                 if (!isAdminMode && !isStartCodeMode && isAdminCommand){
                     isAdminMode = true;
@@ -206,7 +210,7 @@ public class ANGBot extends TelegramLongPollingBot {
                     int index = gameDataIndex(message);
                     int taskNumber = gameDataList.get(index).getTaskNumber();
                     int hintNumber = gameDataList.get(index).getHintNumber();
-                    if (isHintTimer){
+                    if (hintNumber > 0 && hintNumber < 3){
                         String key = HINT + "_" + taskNumber + "_" + hintNumber;
                         sendMsg(message, tasksFile.getProperty(key));
                         hintNumber++;
@@ -216,7 +220,7 @@ public class ANGBot extends TelegramLongPollingBot {
                             isTaskTimer = true;
                         }
                         tasksTimer(message);
-                    } else if (isTaskTimer) {
+                    } else if (hintNumber == 3) {
                         int penaltyTime = gameDataList.get(index).getPenaltyTime_min() + 15;
                         gameDataList.get(index).setPenaltyTime_min(penaltyTime);
                         hintNumber = 1;
@@ -224,7 +228,7 @@ public class ANGBot extends TelegramLongPollingBot {
                         taskNumber++;
                         isTaskTimer = false;
                         isHintTimer = true;
-                        if (!isGameEnded && taskNumber != 8){
+                        if (/*!isGameEnded &&*/ taskNumber != 8){
                             String key = TASK + "_" + taskNumber;
                             sendMsg(message, tasksFile.getProperty(key));
                             gameDataList.get(index).setTaskNumber(taskNumber);
@@ -284,6 +288,18 @@ public class ANGBot extends TelegramLongPollingBot {
             answer = String.valueOf(value);
         }
         return  answer;
+    }
+
+    private boolean isChatInGame(Message message){
+        int index;
+        boolean answer = false;
+        for (index = 0; index < gameDataList.size(); index++){
+            if (gameDataList.get(index).getChat_id() == message.getChatId()){
+                answer = true;
+                break;
+            }
+        }
+        return answer;
     }
 
     //Searching relevant game object in the array
