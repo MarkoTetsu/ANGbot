@@ -32,7 +32,7 @@ public class ANGBot extends TelegramLongPollingBot {
     private int         startDay            = 16;
     private int         startHour           = 20;
     private int         startMinute         = 25;
-    private long        twentyMinutesMilli  = 120000;
+    private long        twentyMinutesMilli  = 1200000;
     private ArrayList<Long>     chatIdList          = new ArrayList<Long>();
     private ArrayList<GameData> gameDataList        = new ArrayList<GameData>();
     private ArrayList<Timer>    taskTimerList       = new ArrayList<Timer>();
@@ -62,7 +62,6 @@ public class ANGBot extends TelegramLongPollingBot {
             if (message.getText().equals("/time")){
                 String sTime = currentDateTime.getHour() + ":" + addZero(currentDateTime.getMinute());
                 sendMsg(message, sTime);
-                sendMsg(message, String.valueOf(gameDataIndex(message)));
             }
 
             if (message.getText().equals("/date")){
