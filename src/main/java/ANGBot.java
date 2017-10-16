@@ -152,11 +152,15 @@ public class ANGBot extends TelegramLongPollingBot {
                         isStartCodeMode = true;
                         sendMsg(message,"Введите стартовый код.");
                     } else if (message.getText().equals(startCode) && isStartCodeMode){
-                        createGameData(message);
+                        if (gameDataList.isEmpty() || !isChatInGame(message)){
+                            createGameData(message);
+                            String sTime = startHour + ":" + addZero(startMinute);
+                            sendMsg(message, "Вы ввели правильный код.");
+                            sendMsg(message, "Игра начнется в " + sTime);
+                        } else if (isChatInGame(message)){
+                            sendMsg(message, "Вы уже ввели правильный код");
+                        }
                         isStartCodeMode = false;
-                        String sTime = startHour + ":" + addZero(startMinute);
-                        sendMsg(message, "Вы ввели правильный код.");
-                        sendMsg(message, "Игра начнется в " + sTime);
                     } else if (!message.getText().equals(startCode) && isStartCodeMode && !isStartCodeCommand){
                         isStartCodeMode = false;
                         sendMsg(message, "Вы ввели неверный стартовый код. Попробуйте еще раз.");
