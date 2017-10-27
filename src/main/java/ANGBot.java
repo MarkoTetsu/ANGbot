@@ -1,3 +1,4 @@
+import java.time.Duration;
 import java.time.LocalTime;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -25,6 +26,9 @@ public class ANGBot extends TelegramLongPollingBot {
     private boolean     isGameEnded         = false;
     private boolean     isTaskTimer         = false;
     private boolean     isHintTimer         = false;
+    private boolean     isBonusFiveUsed     = false;
+    private boolean     isBonusTenUsed      = false;
+    private boolean     isBonusFifteenUsed  = false;
     private String      adminPassword       = "password";
     private String      startCode           = "startcode";
     private int         startYear           = 2017;
@@ -32,7 +36,7 @@ public class ANGBot extends TelegramLongPollingBot {
     private int         startDay            = 16;
     private int         startHour           = 20;
     private int         startMinute         = 25;
-    private long        twentyMinutesMilli  = 1200000;
+    private long        twentyMinutesMilli  = 120000;
     private ArrayList<Long>     chatIdList          = new ArrayList<Long>();
     private ArrayList<GameData> gameDataList        = new ArrayList<GameData>();
     private ArrayList<Timer>    taskTimerList       = new ArrayList<Timer>();
@@ -59,21 +63,21 @@ public class ANGBot extends TelegramLongPollingBot {
                 cmdChecking(message);
             }
 
-            if (message.getText().equals("/time")){
+            if (message.getText().equalsIgnoreCase("/time")){
                 String sTime = currentDateTime.getHour() + ":" + addZero(currentDateTime.getMinute());
                 sendMsg(message, sTime);
             }
 
-            if (message.getText().equals("/date")){
+            if (message.getText().equalsIgnoreCase("/date")){
                 String sDate = currentDateTime.getDayOfMonth() + "." + addZero(currentDateTime.getMonthValue())
                         + "." + currentDateTime.getYear();
                 sendMsg(message, sDate);
             }
 
-            if (message.getText().equals("/chatid")){
+            if (message.getText().equalsIgnoreCase("/chatid")){
                 sendMsg(message, String.valueOf(message.getChatId()));
             }
-            if (message.getText().equals("/when")){
+            if (message.getText().equalsIgnoreCase("/when")){
                 tasksFile = tasksAccess.getTasks();
                 getStartDateTime();
                 String sTime = addZero(startHour) + ":" + addZero(startMinute);
@@ -81,7 +85,7 @@ public class ANGBot extends TelegramLongPollingBot {
                 sendMsg(message, "Игра начнется в " + sDate + " в " + sTime);
             }
 
-            if (message.getText().equals("/gl")){
+            if (message.getText().equalsIgnoreCase("/gl")){
                 tasksFile = tasksAccess.getTasks();
                 sendMsg(message, tasksFile.getProperty(GAME_LEGEND));
             }
@@ -91,21 +95,44 @@ public class ANGBot extends TelegramLongPollingBot {
                     int index = gameDataIndex(message);
                     String key = TASK_CODE + "_" + gameDataList.get(index).getTaskNumber();
                     String taskCode = tasksFile.getProperty(key);
-                    if (message.getText().equals(taskCode)){
+                    String bonusFiveMinutes = tasksFile.getProperty("BONUS_FIVE_MINUTES");
+                    String bonusTenMinutes = tasksFile.getProperty("BONUS_TEN_MINUTES");
+                    String bonusFifteenMinutes = tasksFile.getProperty("BONUS_FIFTEEN_MINUTES");
+                    if (message.getText().equalsIgnoreCase(taskCode)){
                         sendMsg(message, "Вы ответили правильно");
                         int taskNumber = gameDataList.get(index).getTaskNumber() + 1;
                         if (taskNumber < 8){
                             gameDataList.get(index).setTaskNumber(taskNumber);
                             gameDataList.get(index).setHintNumber(1);
+                            gameDataList.get(index).setTaskTime();
                             taskTimerList.get(index).cancel();
                             key = TASK + "_" + taskNumber;
                             sendMsg(message, tasksFile.getProperty(key));
                             taskTimerList.set(index, new Timer());
                             tasksTimer(message);
                         } else {
+                            gameDataList.get(index).setTaskTime();
                             taskTimerList.get(index).cancel();
                             gameOver(message);
                         }
+                    } else if (!isBonusFiveUsed && message.getText().equalsIgnoreCase(bonusFiveMinutes)){
+                        int bonusTime = gameDataList.get(index).getBonusTime_min() + 5;
+                        gameDataList.get(index).setBonusTime_min(bonusTime);
+                        gameDataList.get(index).setBonusFiveMinutes(true);
+                        isBonusFiveUsed = true;
+                        sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 5 минут.");
+                    } else if (!isBonusTenUsed && message.getText().equalsIgnoreCase(bonusTenMinutes)){
+                        int bonusTime = gameDataList.get(index).getBonusTime_min() + 10;
+                        gameDataList.get(index).setBonusTime_min(bonusTime);
+                        gameDataList.get(index).setBonusTenMinutes(true);
+                        isBonusTenUsed = true;
+                        sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 10 минут.");
+                    } else if (!isBonusFifteenUsed && message.getText().equalsIgnoreCase(bonusFifteenMinutes)){
+                        int bonusTime = gameDataList.get(index).getBonusTime_min() + 15;
+                        gameDataList.get(index).setBonusTime_min(bonusTime);
+                        gameDataList.get(index).setBonusFifteenMinutes(true);
+                        isBonusFifteenUsed = true;
+                        sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 15 минут.");
                     }
                 }
             }
@@ -115,11 +142,10 @@ public class ANGBot extends TelegramLongPollingBot {
     //Checking input commands
     private void cmdChecking(Message message){
         //Checking. Message is a command?
-        isStartCommand      = (message.getText().equals("/start") || message.getText().equals("/Start"));
-        isAdminCommand      = (message.getText().equals("/admin") || message.getText().equals("/Admin"));
-        isChatIdCommand     = (message.getText().equals("/chatid") || message.getText().equals("/Chatid"));
-        isStartCodeCommand  = (message.getText().equals("/sc") || message.getText().equals("/Sc")) ||
-                message.getText().equals("/StartCode");
+        isStartCommand      = (message.getText().equalsIgnoreCase("/start"));
+        isAdminCommand      = (message.getText().equalsIgnoreCase("/admin"));
+        isChatIdCommand     = (message.getText().equalsIgnoreCase("/chatid"));
+        isStartCodeCommand  = (message.getText().equalsIgnoreCase("/sc"));
         isCommand           = (isStartCommand || isAdminCommand || isChatIdCommand || isStartCodeCommand);
 
 
@@ -190,10 +216,12 @@ public class ANGBot extends TelegramLongPollingBot {
             newTimer.schedule(new TimerTask() {
                 @Override
                 public void run() {
+                    int index = gameDataIndex(message);
                     sendMsg(message, tasksFile.getProperty(GAME_LEGEND));
                     sendMsg(message, tasksFile.getProperty(TASK + "_" + "1"));
                     isGameStarted = true;
-                    gameDataList.get(gameDataIndex(message)).setHintNumber(1);
+                    gameDataList.get(index).setTaskTime();
+                    gameDataList.get(index).setHintNumber(1);
                     isHintTimer = true;
                     tasksTimer(message);
                 }
@@ -226,6 +254,7 @@ public class ANGBot extends TelegramLongPollingBot {
                     } else if (hintNumber == 3) {
                         int penaltyTime = gameDataList.get(index).getPenaltyTime_min() + 15;
                         gameDataList.get(index).setPenaltyTime_min(penaltyTime);
+                        gameDataList.get(index).setTaskTime();
                         hintNumber = 1;
                         gameDataList.get(index).setHintNumber(hintNumber);
                         taskNumber++;
@@ -249,11 +278,15 @@ public class ANGBot extends TelegramLongPollingBot {
 
     //Game End
     private void gameOver(Message message){
+        int index = gameDataIndex(message);
         LocalTime endTime = LocalTime.now();
         int endHour = endTime.getHour();
         int endMinute = endTime.getMinute();
-        int penaltyTime = gameDataList.get(gameDataIndex(message)).getPenaltyTime_min();
-        if (startHour > endHour){
+        //Штрафное и бонусное время в секундах
+        long penaltyTime = gameDataList.get(index).getPenaltyTime_min() * 60;
+        long bonusTime = gameDataList.get(index).getBonusTime_min() * 60;
+
+        /*if (startHour > endHour){
             endHour = endHour + 24;
         }
         int totalTime = endHour * 60 + endMinute + penaltyTime - startHour * 60 - startMinute;
@@ -264,14 +297,68 @@ public class ANGBot extends TelegramLongPollingBot {
             sendMsg(message, text + " минут.");
         } else {
             sendMsg(message, text + " минуты.");
+        }*/
+
+        String tasksSummary = "Время затраченное на выполнение заданий.\n\n";
+        ArrayList<LocalDateTime> tempTaskMarks = gameDataList.get(index).getTaskMarks();
+        long taskSeconds;
+        int size = tempTaskMarks.size();
+        for (int i = 0; i < size - 1; i++){
+            taskSeconds = Duration.between(tempTaskMarks.get(i), tempTaskMarks.get(i + 1)).getSeconds();
+            tasksSummary = tasksSummary + "Задание " + String.valueOf(i + 1) + " заняло у вас " + timeString(taskSeconds) + "\n";
         }
+
+        tasksSummary = tasksSummary + "Штрафное время " + timeString(penaltyTime) + "\n";
+        tasksSummary = tasksSummary + "Бонусное время " + timeString(bonusTime) + "\n";
+        taskSeconds = Duration.between(tempTaskMarks.get(0), tempTaskMarks.get(size - 1)).getSeconds() + penaltyTime + bonusTime;
+        tasksSummary = tasksSummary + "Итого игра заняла у вас " + timeString(taskSeconds) + "\n\n" + "Благодарим вас за участие.";
+        sendMsg(message, tasksSummary);
+
         isHintTimer = false;
         isTaskTimer = false;
         isGameEnded = true;
     }
+
+    public String timeString(long taskSeconds){
+        long taskMinutes;
+        long taskHours;
+        String text = "";
+
+        taskMinutes = taskSeconds / 60;
+        taskHours = taskMinutes / 60;
+        taskSeconds = taskSeconds % 60;
+        taskMinutes = taskMinutes % 60;
+
+        if (lastDigit(taskHours) == 1){
+            text = text + taskHours + " час, ";
+        } else if (lastDigit(taskHours) > 4 || lastDigit(taskHours) == 0){
+            text = text + taskHours + " часов, ";
+        } else {
+            text = text + taskHours + " часа, ";
+        }
+
+        if (lastDigit(taskMinutes) == 1){
+            text = text + taskMinutes + " минуту, ";
+        } else if (lastDigit(taskMinutes) > 4 || lastDigit(taskMinutes) == 0){
+            text = text + taskMinutes + " минут, ";
+        } else {
+            text = text + taskMinutes + " минуты, ";
+        }
+
+        if (lastDigit(taskSeconds) == 1){
+            text = text + taskSeconds + " секунду.";
+        } else if (lastDigit(taskSeconds) > 4 || lastDigit(taskSeconds) == 0){
+            text = text + taskSeconds + " секунд.";
+        } else {
+            text = text + taskSeconds + " секунды.";
+        }
+
+        return text;
+    }
+
     //Return the last digit of a number
-    private int lastDigit(int value){
-        int tempValue = value;
+    private long lastDigit(long value){
+        long tempValue = value;
         if (value > 9){
             value = value % 10;
             tempValue = tempValue % 100;
