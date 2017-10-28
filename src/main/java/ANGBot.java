@@ -36,7 +36,7 @@ public class ANGBot extends TelegramLongPollingBot {
     private int         startDay            = 16;
     private int         startHour           = 20;
     private int         startMinute         = 25;
-    private long        twentyMinutesMilli  = 120000;
+    private long        twentyMinutesMilli  = 1200000;
     private ArrayList<Long>     chatIdList          = new ArrayList<Long>();
     private ArrayList<GameData> gameDataList        = new ArrayList<GameData>();
     private ArrayList<Timer>    taskTimerList       = new ArrayList<Timer>();
@@ -99,7 +99,7 @@ public class ANGBot extends TelegramLongPollingBot {
                     String bonusTenMinutes = tasksFile.getProperty("BONUS_TEN_MINUTES");
                     String bonusFifteenMinutes = tasksFile.getProperty("BONUS_FIFTEEN_MINUTES");
                     if (message.getText().equalsIgnoreCase(taskCode)){
-                        sendMsg(message, "Вы ответили правильно");
+                        sendMsg(message, "Вы ввели верный код");
                         int taskNumber = gameDataList.get(index).getTaskNumber() + 1;
                         if (taskNumber < 8){
                             gameDataList.get(index).setTaskNumber(taskNumber);
@@ -260,6 +260,7 @@ public class ANGBot extends TelegramLongPollingBot {
                         taskNumber++;
                         isTaskTimer = false;
                         isHintTimer = true;
+                        sendMsg(message, "Вы не нашли верный код.\nДобавлено штрафное время, 15 минут.");
                         if (/*!isGameEnded &&*/ taskNumber < 8){
                             String key = TASK + "_" + taskNumber;
                             sendMsg(message, tasksFile.getProperty(key));
@@ -305,12 +306,12 @@ public class ANGBot extends TelegramLongPollingBot {
         int size = tempTaskMarks.size();
         for (int i = 0; i < size - 1; i++){
             taskSeconds = Duration.between(tempTaskMarks.get(i), tempTaskMarks.get(i + 1)).getSeconds();
-            tasksSummary = tasksSummary + "Задание " + String.valueOf(i + 1) + " заняло у вас " + timeString(taskSeconds) + "\n";
+            tasksSummary = tasksSummary + "Задание " + String.valueOf(i + 1) + " - " + timeString(taskSeconds) + "\n";
         }
 
         tasksSummary = tasksSummary + "Штрафное время " + timeString(penaltyTime) + "\n";
         tasksSummary = tasksSummary + "Бонусное время " + timeString(bonusTime) + "\n";
-        taskSeconds = Duration.between(tempTaskMarks.get(0), tempTaskMarks.get(size - 1)).getSeconds() + penaltyTime + bonusTime;
+        taskSeconds = Duration.between(tempTaskMarks.get(0), tempTaskMarks.get(size - 1)).getSeconds() + penaltyTime - bonusTime;
         tasksSummary = tasksSummary + "Итого игра заняла у вас " + timeString(taskSeconds) + "\n\n" + "Благодарим вас за участие.";
         sendMsg(message, tasksSummary);
 
@@ -329,6 +330,9 @@ public class ANGBot extends TelegramLongPollingBot {
         taskSeconds = taskSeconds % 60;
         taskMinutes = taskMinutes % 60;
 
+        text = text + addZero(taskHours) + ":" + addZero(taskMinutes) + ":" + addZero(taskSeconds);
+
+        /*
         if (lastDigit(taskHours) == 1){
             text = text + taskHours + " час, ";
         } else if (lastDigit(taskHours) > 4 || lastDigit(taskHours) == 0){
@@ -352,6 +356,7 @@ public class ANGBot extends TelegramLongPollingBot {
         } else {
             text = text + taskSeconds + " секунды.";
         }
+        */
 
         return text;
     }
@@ -371,6 +376,16 @@ public class ANGBot extends TelegramLongPollingBot {
 
     //If number < 10, add 0
     private String addZero(int value){
+        String answer = "0";
+        if (value < 10){
+            answer = answer + value;
+        } else {
+            answer = String.valueOf(value);
+        }
+        return  answer;
+    }
+
+    private String addZero(long value){
         String answer = "0";
         if (value < 10){
             answer = answer + value;
