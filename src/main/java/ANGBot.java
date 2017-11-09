@@ -3,7 +3,6 @@ import java.time.LocalTime;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
-
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
@@ -61,6 +60,15 @@ public class ANGBot extends TelegramLongPollingBot {
 
             if (!isGameStarted){
                 cmdChecking(message);
+            }
+
+            if (message.getText().equalsIgnoreCase("/path")){
+                ApplicationStartUpPath startUpPath = new ApplicationStartUpPath();
+                try {
+                    sendMsg(message, "startUpPath: " + startUpPath.getApplicationStartUp());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             if (message.getText().equalsIgnoreCase("/time")){
