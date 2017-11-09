@@ -2,14 +2,16 @@ import java.io.*;
 import java.util.Properties;
 
 public class TasksAccess {
-    private final String sFileName = "src/main/resources/tasks.properties";
+    private final String sFileName = "tasks.properties";
     private String sDirSeparator = System.getProperty("file.separator");
 
     //Read properties file
     public Properties getTasks(){
         Properties props = new Properties();
+        ApplicationStartUpPath startUpPath = new ApplicationStartUpPath();
         try {
-            InputStream ins = getClass().getResourceAsStream("tasks.properties");
+            String sFilePath = startUpPath.getApplicationStartUp() + sDirSeparator + sFileName;
+            FileInputStream ins = new FileInputStream(sFilePath);
             props.load(ins);
             ins.close();
         } catch (FileNotFoundException e) {

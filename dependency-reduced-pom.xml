@@ -12,6 +12,13 @@
           <exclude>tasks.properties</exclude>
         </excludes>
       </resource>
+      <resource>
+        <targetPath>..</targetPath>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>tasks.properties</include>
+        </includes>
+      </resource>
     </resources>
     <plugins>
       <plugin>

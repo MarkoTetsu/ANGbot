@@ -62,6 +62,7 @@ public class ANGBot extends TelegramLongPollingBot {
                 cmdChecking(message);
             }
 
+            //Отображение пути к jar
             if (message.getText().equalsIgnoreCase("/path")){
                 ApplicationStartUpPath startUpPath = new ApplicationStartUpPath();
                 try {
