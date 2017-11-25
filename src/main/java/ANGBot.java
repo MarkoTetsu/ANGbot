@@ -125,11 +125,11 @@ public class ANGBot extends TelegramLongPollingBot {
                             gameOver(message);
                         }
                     } else if (!isBonusFiveUsed && message.getText().equalsIgnoreCase(bonusFiveMinutes)){
-                        int bonusTime = gameDataList.get(index).getBonusTime_min() + 5;
+                        int bonusTime = gameDataList.get(index).getBonusTime_min() + 10;
                         gameDataList.get(index).setBonusTime_min(bonusTime);
                         gameDataList.get(index).setBonusFiveMinutes(true);
                         isBonusFiveUsed = true;
-                        sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 5 минут.");
+                        sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 10 минут.");
                     } else if (!isBonusTenUsed && message.getText().equalsIgnoreCase(bonusTenMinutes)){
                         int bonusTime = gameDataList.get(index).getBonusTime_min() + 10;
                         gameDataList.get(index).setBonusTime_min(bonusTime);
@@ -137,11 +137,11 @@ public class ANGBot extends TelegramLongPollingBot {
                         isBonusTenUsed = true;
                         sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 10 минут.");
                     } else if (!isBonusFifteenUsed && message.getText().equalsIgnoreCase(bonusFifteenMinutes)){
-                        int bonusTime = gameDataList.get(index).getBonusTime_min() + 15;
+                        int bonusTime = gameDataList.get(index).getBonusTime_min() + 10;
                         gameDataList.get(index).setBonusTime_min(bonusTime);
                         gameDataList.get(index).setBonusFifteenMinutes(true);
                         isBonusFifteenUsed = true;
-                        sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 15 минут.");
+                        sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 10 минут.");
                     }
                 }
             }
@@ -269,7 +269,7 @@ public class ANGBot extends TelegramLongPollingBot {
                         taskNumber++;
                         isTaskTimer = false;
                         isHintTimer = true;
-                        sendMsg(message, "Вы не нашли верный код.\nДобавлено штрафное время, 15 минут.");
+                        sendMsg(message, "Вы не нашли верный код.\nДобавлено штрафное время, 5 минут.");
                         if (/*!isGameEnded &&*/ taskNumber < 8){
                             String key = TASK + "_" + taskNumber;
                             sendMsg(message, tasksFile.getProperty(key));
