@@ -463,4 +463,21 @@ public class ANGBot extends TelegramLongPollingBot {
         // Return bot token from BotFather
         return "400297140:AAH_EqzOCmZCya4AHJ6hgqIaGY4Ky9jLupE";
     }
+
+    class GameObject {
+        private int     taskNumber                  = 1;
+        private int     hintNumber                  = 0;
+        private int     totalTime                   = 0;
+        private int     penaltyTime_min             = 0;
+        private int     bonusTime_min               = 0;
+        private long    chatId;
+        private boolean isBonusFiveMinutes          = false;
+        private boolean isBonusTenMinutes           = false;
+        private boolean isBonusFifteenMinutes       = false;
+        private ArrayList<LocalDateTime> taskMarks  = new ArrayList<>();
+
+        GameObject (long value) {chatId = value;}
+
+
+    }
 }
