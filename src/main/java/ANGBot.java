@@ -217,7 +217,8 @@ public class ANGBot extends TelegramLongPollingBot {
     //Timer tracking the start day and time
     private void startTimer(final Message message){
         LocalDateTime gameDateTime = LocalDateTime.of(startYear, startMonth, startDay, startHour, startMinute);
-        ZoneId zoneId = ZoneId.systemDefault();
+        //ZoneId zoneId = ZoneId.systemDefault();
+        ZoneId zoneId = ZoneId.of("Europe/Moscow");
         long presetTime = gameDateTime.atZone(zoneId).toEpochSecond() * 1000;
 
         try{
