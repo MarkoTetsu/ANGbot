@@ -36,6 +36,7 @@ public class ANGBot extends TelegramLongPollingBot {
     private int         startHour           = 20;
     private int         startMinute         = 25;
     private long        twentyMinutesMilli  = 1200000;
+    private ZoneId      zoneId              = ZoneId.of("Europe/Moscow");
     private ArrayList<Long>     chatIdList          = new ArrayList<Long>();
     private ArrayList<GameData> gameDataList        = new ArrayList<GameData>();
     private ArrayList<Timer>    taskTimerList       = new ArrayList<Timer>();
@@ -53,8 +54,9 @@ public class ANGBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         Message message = update.getMessage();
-        LocalTime currentTime = LocalTime.now();
-        LocalDateTime currentDateTime = LocalDateTime.now();
+
+        LocalTime currentTime = LocalTime.now(zoneId);
+        LocalDateTime currentDateTime = LocalDateTime.now(zoneId);
 // We check if the update has a message and the message has text
         if (message != null && message.hasText()){
 
@@ -218,7 +220,7 @@ public class ANGBot extends TelegramLongPollingBot {
     private void startTimer(final Message message){
         LocalDateTime gameDateTime = LocalDateTime.of(startYear, startMonth, startDay, startHour, startMinute);
         //ZoneId zoneId = ZoneId.systemDefault();
-        ZoneId zoneId = ZoneId.of("Europe/Moscow");
+        //ZoneId zoneId = ZoneId.of("Europe/Moscow");
         long presetTime = gameDateTime.atZone(zoneId).toEpochSecond() * 1000;
 
         try{
