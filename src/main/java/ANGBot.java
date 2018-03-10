@@ -213,7 +213,26 @@ public class ANGBot extends TelegramLongPollingBot {
         gameDataList.add(new GameData(message.getChatId()));
         taskTimerList.add(new Timer());
         getStartDateTime();
+        legendTimer(message);
         startTimer(message);
+    }
+
+    //Таймер для вывода легенды игры, за 5 минут до начала.
+    private void legendTimer(final Message message){
+        LocalDateTime gameDateTime = LocalDateTime.of(startYear, startMonth, startDay, startHour, startMinute);
+        long presetTime = gameDateTime.atZone(zoneId).toEpochSecond() * 1000 - 300000;
+
+        try{
+            Timer newTimer = new Timer();
+            newTimer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    sendMsg(message, tasksFile.getProperty(GAME_LEGEND));
+                }
+            }, new Date(presetTime));
+        } catch (IllegalArgumentException e){
+            sendMsg(message, "Игра уже началась");
+        }
     }
 
     //Timer tracking the start day and time
@@ -229,7 +248,6 @@ public class ANGBot extends TelegramLongPollingBot {
                 @Override
                 public void run() {
                     int index = gameDataIndex(message);
-                    sendMsg(message, tasksFile.getProperty(GAME_LEGEND));
                     sendMsg(message, tasksFile.getProperty(TASK + "_" + "1"));
                     isGameStarted = true;
                     gameDataList.get(index).setTaskTime();
