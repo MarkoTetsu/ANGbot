@@ -282,7 +282,7 @@ public class ANGBot extends TelegramLongPollingBot {
                         }
                         tasksTimer(message);
                     } else if (hintNumber == 3) {
-                        int penaltyTime = gameDataList.get(index).getPenaltyTime_min() + 5;
+                        int penaltyTime = gameDataList.get(index).getPenaltyTime_min() + 15;
                         gameDataList.get(index).setPenaltyTime_min(penaltyTime);
                         gameDataList.get(index).setTaskTime();
                         hintNumber = 1;
