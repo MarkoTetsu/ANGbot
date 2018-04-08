@@ -1,3 +1,4 @@
+import java.io.*;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.time.LocalDateTime;
@@ -468,6 +469,24 @@ public class ANGBot extends TelegramLongPollingBot {
         try {
             execute(sendMessage); // Sending our message object to user
         } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //Sending images
+    private void sendImg(Message message, String text){
+        String sFileName = text;
+        String sDirSeparator = System.getProperty("file.separator");
+        ApplicationStartUpPath startUpPath = new ApplicationStartUpPath();
+        try {
+            String sFilePath = startUpPath.getApplicationStartUp() + sDirSeparator + sFileName;
+            FileOutputStream ins = new FileOutputStream(sFilePath);
+
+            //props.load(ins);
+            ins.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
