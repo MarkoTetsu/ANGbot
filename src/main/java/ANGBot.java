@@ -4,6 +4,8 @@ import java.time.LocalTime;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
+
+import org.telegram.telegrambots.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
@@ -100,6 +102,7 @@ public class ANGBot extends TelegramLongPollingBot {
             if (message.getText().equalsIgnoreCase("/gl")){
                 tasksFile = tasksAccess.getTasks();
                 sendMsg(message, tasksFile.getProperty(GAME_LEGEND));
+                sendImg(message, "legend.jpg");
             }
 
             if ((currentTime.getHour() >= startHour) || (currentTime.getHour() < 8)) {
@@ -478,15 +481,21 @@ public class ANGBot extends TelegramLongPollingBot {
         String sFileName = text;
         String sDirSeparator = System.getProperty("file.separator");
         ApplicationStartUpPath startUpPath = new ApplicationStartUpPath();
-        try {
-            String sFilePath = startUpPath.getApplicationStartUp() + sDirSeparator + sFileName;
-            FileOutputStream ins = new FileOutputStream(sFilePath);
+        String sFilePath = "";
 
-            //props.load(ins);
-            ins.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        try {
+            sFilePath = startUpPath.getApplicationStartUp() + sDirSeparator + sFileName;
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        SendPhoto sendMyPhoto = new SendPhoto();
+        sendMyPhoto.setChatId(message.getChatId());
+        sendMyPhoto.setNewPhoto(new File(sFilePath));
+
+        try {
+            sendPhoto(sendMyPhoto);
+        } catch (TelegramApiException e) {
             e.printStackTrace();
         }
     }
