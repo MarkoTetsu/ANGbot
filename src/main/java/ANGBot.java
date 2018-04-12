@@ -102,7 +102,7 @@ public class ANGBot extends TelegramLongPollingBot {
             if (message.getText().equalsIgnoreCase("/gl")){
                 tasksFile = tasksAccess.getTasks();
                 sendMsg(message, tasksFile.getProperty(GAME_LEGEND));
-                sendImg(message, "legend.jpg");
+                sendImg(message, "legend");
             }
 
             if ((currentTime.getHour() >= startHour) || (currentTime.getHour() < 8)) {
@@ -232,6 +232,7 @@ public class ANGBot extends TelegramLongPollingBot {
                 @Override
                 public void run() {
                     sendMsg(message, tasksFile.getProperty(GAME_LEGEND));
+                    sendImg(message, "legend");
                 }
             }, new Date(presetTime));
         } catch (IllegalArgumentException e){
@@ -253,6 +254,7 @@ public class ANGBot extends TelegramLongPollingBot {
                 public void run() {
                     int index = gameDataIndex(message);
                     sendMsg(message, tasksFile.getProperty(TASK + "_" + "1"));
+                    sendImg(message, "task_1");
                     isGameStarted = true;
                     gameDataList.get(index).setTaskTime();
                     gameDataList.get(index).setHintNumber(1);
@@ -298,6 +300,7 @@ public class ANGBot extends TelegramLongPollingBot {
                         if (/*!isGameEnded &&*/ taskNumber < 8){
                             String key = TASK + "_" + taskNumber;
                             sendMsg(message, tasksFile.getProperty(key));
+                            sendImg(message, "task_" + taskNumber);
                             gameDataList.get(index).setTaskNumber(taskNumber);
                             tasksTimer(message);
                         } else if (taskNumber == 8){
@@ -478,7 +481,7 @@ public class ANGBot extends TelegramLongPollingBot {
 
     //Sending images
     private void sendImg(Message message, String text){
-        String sFileName = text;
+        String sFileName = text + ".jpg";
         String sDirSeparator = System.getProperty("file.separator");
         ApplicationStartUpPath startUpPath = new ApplicationStartUpPath();
         String sFilePath = "";
