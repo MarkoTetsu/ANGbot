@@ -38,7 +38,7 @@ public class ANGBot extends TelegramLongPollingBot {
     private int         startDay            = 16;
     private int         startHour           = 20;
     private int         startMinute         = 25;
-    private long        twentyMinutesMilli  = 1200000; //1200000
+    private long        twentyMinutesMilli  = 120000; //1200000
     private ZoneId      zoneId              = ZoneId.of("Europe/Moscow");
     private ArrayList<Long>     chatIdList          = new ArrayList<Long>();
     private ArrayList<GameData> gameDataList        = new ArrayList<GameData>();
@@ -123,6 +123,8 @@ public class ANGBot extends TelegramLongPollingBot {
                             taskTimerList.get(index).cancel();
                             key = TASK + "_" + taskNumber;
                             sendMsg(message, tasksFile.getProperty(key));
+                            String imageName = "task_" + taskNumber;
+                            sendImg(message, imageName);
                             taskTimerList.set(index, new Timer());
                             tasksTimer(message);
                         } else {
@@ -300,7 +302,8 @@ public class ANGBot extends TelegramLongPollingBot {
                         if (/*!isGameEnded &&*/ taskNumber < 8){
                             String key = TASK + "_" + taskNumber;
                             sendMsg(message, tasksFile.getProperty(key));
-                            sendImg(message, "task_" + taskNumber);
+                            String imageName = "task_" + taskNumber;
+                            sendImg(message, imageName);
                             gameDataList.get(index).setTaskNumber(taskNumber);
                             tasksTimer(message);
                         } else if (taskNumber == 8){
