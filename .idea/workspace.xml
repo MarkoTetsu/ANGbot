@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d1cee280-8994-4b67-84d8-3db3b8068f18" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ANGBot.java" afterPath="$PROJECT_DIR$/src/main/java/ANGBot.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/tasks.properties" afterPath="$PROJECT_DIR$/src/main/resources/tasks.properties" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -31,11 +30,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ANGBot.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ANGBot.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ANGBot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="840">
-              <caret line="300" column="94" lean-forward="false" selection-start-line="300" selection-start-column="94" selection-end-line="300" selection-end-column="94" />
+            <state relative-caret-position="231">
+              <caret line="40" column="64" lean-forward="true" selection-start-line="40" selection-start-column="64" selection-end-line="40" selection-end-column="64" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2052#2058#0" expanded="true" />
@@ -76,11 +75,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tasks.properties" pinned="false" current-in-tab="false">
+      <file leaf-file-name="tasks.properties" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/tasks.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="706">
-              <caret line="35" column="28" lean-forward="true" selection-start-line="35" selection-start-column="28" selection-end-line="35" selection-end-column="28" />
+            <state relative-caret-position="31">
+              <caret line="2" column="13" lean-forward="true" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -412,13 +411,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1506095768751</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Изменил кодировку файла properties.&#10;Также изменил procfile">
-      <created>1506164161702</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1506164161702</updated>
     </task>
     <task id="LOCAL-00010" summary="Изменил кодировку файла properties.&#10;Также изменил procfile">
       <created>1506166726065</created>
@@ -756,7 +748,14 @@
       <option name="project" value="LOCAL" />
       <updated>1523715182839</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="Изменил проперти файл для игры, и изменил штрафное время с 5 на 15 в описании">
+      <created>1524928667268</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1524928667269</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -832,7 +831,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Добавил команду /id" />
     <MESSAGE value="Удалил /id" />
     <MESSAGE value="Изменил кодировку" />
     <MESSAGE value="Ошибка с появлением подсказок на шестом задании" />
@@ -857,7 +855,8 @@
     <MESSAGE value="Изменил штрафное время с 5 минут до 15" />
     <MESSAGE value="Отправка картинок для всех заданий (пока полностью не работает)" />
     <MESSAGE value="Изменил проперти файл для игры, и вернул время с двух минут, на двадцать" />
-    <option name="LAST_COMMIT_MESSAGE" value="Изменил проперти файл для игры, и вернул время с двух минут, на двадцать" />
+    <MESSAGE value="Изменил проперти файл для игры, и изменил штрафное время с 5 на 15 в описании" />
+    <option name="LAST_COMMIT_MESSAGE" value="Изменил проперти файл для игры, и изменил штрафное время с 5 на 15 в описании" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1233,16 +1232,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/GameData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="16" column="43" lean-forward="false" selection-start-line="16" selection-start-column="43" selection-end-line="16" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/telegram/telegrambots/3.3/telegrambots-3.3.jar!/org/telegram/telegrambots/bots/DefaultAbsSender.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="417">
@@ -1275,18 +1264,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/tasks.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="706">
-          <caret line="35" column="28" lean-forward="true" selection-start-line="35" selection-start-column="28" selection-end-line="35" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ANGBot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="300" column="94" lean-forward="false" selection-start-line="300" selection-start-column="94" selection-end-line="300" selection-end-column="94" />
+        <state relative-caret-position="231">
+          <caret line="40" column="64" lean-forward="true" selection-start-line="40" selection-start-column="64" selection-end-line="40" selection-end-column="64" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#2052#2058#0" expanded="true" />
@@ -1299,6 +1280,24 @@
             <element signature="e#13958#16060#0" expanded="true" />
             <element signature="e#16059#16060#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/GameData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="16" column="43" lean-forward="false" selection-start-line="16" selection-start-column="43" selection-end-line="16" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/tasks.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="31">
+          <caret line="2" column="13" lean-forward="true" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
