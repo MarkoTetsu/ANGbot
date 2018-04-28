@@ -298,7 +298,7 @@ public class ANGBot extends TelegramLongPollingBot {
                         taskNumber++;
                         isTaskTimer = false;
                         isHintTimer = true;
-                        sendMsg(message, "Вы не нашли верный код.\nДобавлено штрафное время, 5 минут.");
+                        sendMsg(message, "Вы не нашли верный код.\nДобавлено штрафное время, 15 минут.");
                         if (/*!isGameEnded &&*/ taskNumber < 8){
                             String key = TASK + "_" + taskNumber;
                             sendMsg(message, tasksFile.getProperty(key));
