@@ -82,6 +82,11 @@ public class ANGBot extends TelegramLongPollingBot {
                 sendMsg(message, sTime);
             }
 
+            if (message.getText().equalsIgnoreCase("/task")){
+                String sTask = "Задание №1\\n(С Агентом)\\n26 июня 1864 г. экипаж яхты «Дункан», во время рыбалки вылавливает акулу, в животе которой находят бутылку с запиской на трёх языках. Текст был частично испорчен:\\n\\n... ... ... ... ... .\\nSie müssen ... ... .\\n... ... ... ...  - Partnerstadt ..., er ist aus dem Land, ... ... ... ... ... ... .\\nSein Haus ... ... ... ... ... ... .\\n... ... ... und liest gerne Bücher.\\nFragen Sie, ... ...den glorreichen Captain Harry Grant retten?!\\n\\nMy ship drowned not far from .....\\n... ...  save me.\\nYou need to find ... - ... ... ..., ... ... ... with a less burning name than Chile.\\n... ... on 43.02xxx .... ....\\n... ... ... ... ... ....\\n... ..., does not he want to save ... Captain Harry Grant?\\n\\n... ... ... ... ... ....\\nTu dois me sauver.\\n... ... ... son - Ville jumelle de Sergo, ... ... ... ... ... ... ... ... ....\\n... ... ... ... ... et 44.6xx7x ....\\nIl aime jouer ... ... ... ... ... .\\nDemandez-lui dans, ... ... ... ... ... ... ... сapitaine Harry Grant?!\\nКод опасности Агент\n";
+                sendMsg(message, sTask);
+            }
+
             if (message.getText().equalsIgnoreCase("/date")){
                 String sDate = currentDateTime.getDayOfMonth() + "." + addZero(currentDateTime.getMonthValue())
                         + "." + currentDateTime.getYear();
