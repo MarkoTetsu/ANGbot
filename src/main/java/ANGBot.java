@@ -6,6 +6,7 @@ import java.time.ZoneId;
 import java.util.*;
 
 import org.telegram.telegrambots.api.methods.send.SendPhoto;
+import org.telegram.telegrambots.api.methods.send.SendVideo;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
@@ -82,9 +83,8 @@ public class ANGBot extends TelegramLongPollingBot {
                 sendMsg(message, sTime);
             }
 
-            if (message.getText().equalsIgnoreCase("/task")){
-                String sTask = "Задание №1\\n(С Агентом)\\n26 июня 1864 г. экипаж яхты «Дункан», во время рыбалки вылавливает акулу, в животе которой находят бутылку с запиской на трёх языках. Текст был частично испорчен:\\n\\n... ... ... ... ... .\\nSie müssen ... ... .\\n... ... ... ...  - Partnerstadt ..., er ist aus dem Land, ... ... ... ... ... ... .\\nSein Haus ... ... ... ... ... ... .\\n... ... ... und liest gerne Bücher.\\nFragen Sie, ... ...den glorreichen Captain Harry Grant retten?!\\n\\nMy ship drowned not far from .....\\n... ...  save me.\\nYou need to find ... - ... ... ..., ... ... ... with a less burning name than Chile.\\n... ... on 43.02xxx .... ....\\n... ... ... ... ... ....\\n... ..., does not he want to save ... Captain Harry Grant?\\n\\n... ... ... ... ... ....\\nTu dois me sauver.\\n... ... ... son - Ville jumelle de Sergo, ... ... ... ... ... ... ... ... ....\\n... ... ... ... ... et 44.6xx7x ....\\nIl aime jouer ... ... ... ... ... .\\nDemandez-lui dans, ... ... ... ... ... ... ... сapitaine Harry Grant?!\\nКод опасности Агент\n";
-                sendMsg(message, sTask);
+            if (message.getText().equalsIgnoreCase("/vid")){
+                sendVid(message, "vid");
             }
 
             if (message.getText().equalsIgnoreCase("/date")){
@@ -108,6 +108,7 @@ public class ANGBot extends TelegramLongPollingBot {
                 tasksFile = tasksAccess.getTasks();
                 sendMsg(message, tasksFile.getProperty(GAME_LEGEND));
                 sendImg(message, "legend");
+                sendVid(message, "legend");
             }
 
             if ((currentTime.getHour() >= startHour) || (currentTime.getHour() < 8)) {
@@ -128,8 +129,9 @@ public class ANGBot extends TelegramLongPollingBot {
                             taskTimerList.get(index).cancel();
                             key = TASK + "_" + taskNumber;
                             sendMsg(message, tasksFile.getProperty(key));
-                            String imageName = "task_" + taskNumber;
-                            sendImg(message, imageName);
+                            String fileName = "task_" + taskNumber;
+                            sendImg(message, fileName);
+                            sendVid(message, fileName);
                             taskTimerList.set(index, new Timer());
                             tasksTimer(message);
                         } else {
@@ -240,6 +242,7 @@ public class ANGBot extends TelegramLongPollingBot {
                 public void run() {
                     sendMsg(message, tasksFile.getProperty(GAME_LEGEND));
                     sendImg(message, "legend");
+                    sendVid(message, "legend");
                 }
             }, new Date(presetTime));
         } catch (IllegalArgumentException e){
@@ -262,6 +265,7 @@ public class ANGBot extends TelegramLongPollingBot {
                     int index = gameDataIndex(message);
                     sendMsg(message, tasksFile.getProperty(TASK + "_" + "1"));
                     sendImg(message, "task_1");
+                    sendVid(message, "task_1");
                     isGameStarted = true;
                     gameDataList.get(index).setTaskTime();
                     gameDataList.get(index).setHintNumber(1);
@@ -307,8 +311,9 @@ public class ANGBot extends TelegramLongPollingBot {
                         if (/*!isGameEnded &&*/ taskNumber < 8){
                             String key = TASK + "_" + taskNumber;
                             sendMsg(message, tasksFile.getProperty(key));
-                            String imageName = "task_" + taskNumber;
-                            sendImg(message, imageName);
+                            String fileName = "task_" + taskNumber;
+                            sendImg(message, fileName);
+                            sendVid(message, fileName);
                             gameDataList.get(index).setTaskNumber(taskNumber);
                             tasksTimer(message);
                         } else if (taskNumber == 8){
@@ -506,6 +511,30 @@ public class ANGBot extends TelegramLongPollingBot {
 
         try {
             sendPhoto(sendMyPhoto);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //Sending videos
+    private void sendVid(Message message, String text){
+        String sFileName = text + ".mp4";
+        String sDirSeparator = System.getProperty("file.separator");
+        ApplicationStartUpPath startUpPath = new ApplicationStartUpPath();
+        String sFilePath = "";
+
+        try {
+            sFilePath = startUpPath.getApplicationStartUp() + sDirSeparator + sFileName;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        SendVideo sendMyVideo = new SendVideo();
+        sendMyVideo.setChatId(message.getChatId());
+        sendMyVideo.setNewVideo(new File(sFilePath));
+
+        try {
+            sendVideo(sendMyVideo);
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
