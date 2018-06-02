@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
 
+import org.telegram.telegrambots.api.methods.send.SendDocument;
 import org.telegram.telegrambots.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.api.methods.send.SendVideo;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
@@ -29,9 +30,9 @@ public class ANGBot extends TelegramLongPollingBot {
     private boolean     isGameEnded         = false;
     private boolean     isTaskTimer         = false;
     private boolean     isHintTimer         = false;
-    private boolean     isBonusFiveUsed     = false;
-    private boolean     isBonusTenUsed      = false;
-    private boolean     isBonusFifteenUsed  = false;
+    //private boolean     isBonusFiveUsed     = false;
+    //private boolean     isBonusTenUsed      = false;
+    //private boolean     isBonusFifteenUsed  = false;
     private String      adminPassword       = "password";
     private String      startCode           = "startcode";
     private int         startYear           = 2017;
@@ -83,8 +84,8 @@ public class ANGBot extends TelegramLongPollingBot {
                 sendMsg(message, sTime);
             }
 
-            if (message.getText().equalsIgnoreCase("/vid")){
-                sendVid(message, "vid");
+            if (message.getText().equalsIgnoreCase("/doc")){
+                sendDoc(message, "task_1.zip");
             }
 
             if (message.getText().equalsIgnoreCase("/date")){
@@ -96,6 +97,7 @@ public class ANGBot extends TelegramLongPollingBot {
             if (message.getText().equalsIgnoreCase("/chatid")){
                 sendMsg(message, String.valueOf(message.getChatId()));
             }
+
             if (message.getText().equalsIgnoreCase("/when")){
                 tasksFile = tasksAccess.getTasks();
                 getStartDateTime();
@@ -119,6 +121,9 @@ public class ANGBot extends TelegramLongPollingBot {
                     String bonusFiveMinutes = tasksFile.getProperty("BONUS_FIVE_MINUTES");
                     String bonusTenMinutes = tasksFile.getProperty("BONUS_TEN_MINUTES");
                     String bonusFifteenMinutes = tasksFile.getProperty("BONUS_FIFTEEN_MINUTES");
+                    Boolean isBonusFiveUsed = gameDataList.get(index).isBonusFiveMinutes();
+                    Boolean isBonusTenUsed = gameDataList.get(index).isBonusTenMinutes();
+                    Boolean isBonusFifteenUsed = gameDataList.get(index).isBonusFifteenMinutes();
                     if (message.getText().equalsIgnoreCase(taskCode)){
                         sendMsg(message, "Вы ввели верный код");
                         int taskNumber = gameDataList.get(index).getTaskNumber() + 1;
@@ -132,6 +137,7 @@ public class ANGBot extends TelegramLongPollingBot {
                             String fileName = "task_" + taskNumber;
                             sendImg(message, fileName);
                             sendVid(message, fileName);
+                            sendDoc(message, fileName + ".zip");
                             taskTimerList.set(index, new Timer());
                             tasksTimer(message);
                         } else {
@@ -143,20 +149,20 @@ public class ANGBot extends TelegramLongPollingBot {
                         int bonusTime = gameDataList.get(index).getBonusTime_min() + 5;
                         gameDataList.get(index).setBonusTime_min(bonusTime);
                         gameDataList.get(index).setBonusFiveMinutes(true);
-                        isBonusFiveUsed = true;
+                        //isBonusFiveUsed = true;
                         sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 5 минут.");
                     } else if (!isBonusTenUsed && message.getText().equalsIgnoreCase(bonusTenMinutes)){
-                        int bonusTime = gameDataList.get(index).getBonusTime_min() + 5;
+                        int bonusTime = gameDataList.get(index).getBonusTime_min() + 10;
                         gameDataList.get(index).setBonusTime_min(bonusTime);
                         gameDataList.get(index).setBonusTenMinutes(true);
-                        isBonusTenUsed = true;
-                        sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 5 минут.");
+                        //isBonusTenUsed = true;
+                        sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 10 минут.");
                     } else if (!isBonusFifteenUsed && message.getText().equalsIgnoreCase(bonusFifteenMinutes)){
-                        int bonusTime = gameDataList.get(index).getBonusTime_min() + 5;
+                        int bonusTime = gameDataList.get(index).getBonusTime_min() + 15;
                         gameDataList.get(index).setBonusTime_min(bonusTime);
                         gameDataList.get(index).setBonusFifteenMinutes(true);
-                        isBonusFifteenUsed = true;
-                        sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 5 минут.");
+                        //isBonusFifteenUsed = true;
+                        sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 15 минут.");
                     }
                 }
             }
@@ -314,6 +320,7 @@ public class ANGBot extends TelegramLongPollingBot {
                             String fileName = "task_" + taskNumber;
                             sendImg(message, fileName);
                             sendVid(message, fileName);
+                            sendDoc(message, fileName + ".zip");
                             gameDataList.get(index).setTaskNumber(taskNumber);
                             tasksTimer(message);
                         } else if (taskNumber == 8){
@@ -535,6 +542,30 @@ public class ANGBot extends TelegramLongPollingBot {
 
         try {
             sendVideo(sendMyVideo);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //Sending documents
+    private void sendDoc(Message message, String text){
+        String sFileName = text;
+        String sDirSeparator = System.getProperty("file.separator");
+        ApplicationStartUpPath startUpPath = new ApplicationStartUpPath();
+        String sFilePath = "";
+
+        try {
+            sFilePath = startUpPath.getApplicationStartUp() + sDirSeparator + sFileName;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        SendDocument sendMyDocument = new SendDocument();
+        sendMyDocument.setChatId(message.getChatId());
+        sendMyDocument.setNewDocument(new File(sFilePath));
+
+        try {
+            sendDocument(sendMyDocument);
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
