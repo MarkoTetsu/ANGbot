@@ -152,17 +152,17 @@ public class ANGBot extends TelegramLongPollingBot {
                         //isBonusFiveUsed = true;
                         sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 5 минут.");
                     } else if (!isBonusTenUsed && message.getText().equalsIgnoreCase(bonusTenMinutes)){
-                        int bonusTime = gameDataList.get(index).getBonusTime_min() + 10;
+                        int bonusTime = gameDataList.get(index).getBonusTime_min() + 5;
                         gameDataList.get(index).setBonusTime_min(bonusTime);
                         gameDataList.get(index).setBonusTenMinutes(true);
                         //isBonusTenUsed = true;
-                        sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 10 минут.");
+                        sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 5 минут.");
                     } else if (!isBonusFifteenUsed && message.getText().equalsIgnoreCase(bonusFifteenMinutes)){
-                        int bonusTime = gameDataList.get(index).getBonusTime_min() + 15;
+                        int bonusTime = gameDataList.get(index).getBonusTime_min() + 5;
                         gameDataList.get(index).setBonusTime_min(bonusTime);
                         gameDataList.get(index).setBonusFifteenMinutes(true);
                         //isBonusFifteenUsed = true;
-                        sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 15 минут.");
+                        sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 5 минут.");
                     }
                 }
             }
@@ -297,6 +297,7 @@ public class ANGBot extends TelegramLongPollingBot {
                     if (hintNumber > 0 && hintNumber < 3){
                         String key = HINT + "_" + taskNumber + "_" + hintNumber;
                         sendMsg(message, tasksFile.getProperty(key));
+                        sendImg(message, "hint_" + taskNumber + "_" + hintNumber);
                         hintNumber++;
                         gameDataList.get(index).setHintNumber(hintNumber);
                         if (hintNumber == 3){
