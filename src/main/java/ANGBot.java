@@ -5,12 +5,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
 
-import org.telegram.telegrambots.api.methods.send.SendDocument;
-import org.telegram.telegrambots.api.methods.send.SendPhoto;
-import org.telegram.telegrambots.api.methods.send.SendVideo;
+import org.telegram.telegrambots.api.methods.send.*;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 import org.telegram.telegrambots.api.objects.Message;
-import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 
@@ -84,8 +81,8 @@ public class ANGBot extends TelegramLongPollingBot {
                 sendMsg(message, sTime);
             }
 
-            if (message.getText().equalsIgnoreCase("/doc")){
-                sendDoc(message, "task_1.zip");
+            if (message.getText().equalsIgnoreCase("/audio")){
+                sendAud(message, "task_1");
             }
 
             if (message.getText().equalsIgnoreCase("/date")){
@@ -111,6 +108,7 @@ public class ANGBot extends TelegramLongPollingBot {
                 sendMsg(message, tasksFile.getProperty(GAME_LEGEND));
                 sendImg(message, "legend");
                 sendVid(message, "legend");
+                sendAud(message, "legend");
             }
 
             if ((currentTime.getHour() >= startHour) || (currentTime.getHour() < 8)) {
@@ -137,6 +135,7 @@ public class ANGBot extends TelegramLongPollingBot {
                             String fileName = "task_" + taskNumber;
                             sendImg(message, fileName);
                             sendVid(message, fileName);
+                            sendAud(message, fileName);
                             sendDoc(message, fileName + ".zip");
                             taskTimerList.set(index, new Timer());
                             tasksTimer(message);
@@ -249,6 +248,7 @@ public class ANGBot extends TelegramLongPollingBot {
                     sendMsg(message, tasksFile.getProperty(GAME_LEGEND));
                     sendImg(message, "legend");
                     sendVid(message, "legend");
+                    sendAud(message, "legend");
                 }
             }, new Date(presetTime));
         } catch (IllegalArgumentException e){
@@ -272,6 +272,8 @@ public class ANGBot extends TelegramLongPollingBot {
                     sendMsg(message, tasksFile.getProperty(TASK + "_" + "1"));
                     sendImg(message, "task_1");
                     sendVid(message, "task_1");
+                    sendAud(message, "task_1");
+                    sendDoc(message, "task_1");
                     isGameStarted = true;
                     gameDataList.get(index).setTaskTime();
                     gameDataList.get(index).setHintNumber(1);
@@ -321,6 +323,7 @@ public class ANGBot extends TelegramLongPollingBot {
                             String fileName = "task_" + taskNumber;
                             sendImg(message, fileName);
                             sendVid(message, fileName);
+                            sendAud(message, fileName);
                             sendDoc(message, fileName + ".zip");
                             gameDataList.get(index).setTaskNumber(taskNumber);
                             tasksTimer(message);
@@ -543,6 +546,30 @@ public class ANGBot extends TelegramLongPollingBot {
 
         try {
             sendVideo(sendMyVideo);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //Sending audio files
+    private void sendAud(Message message, String text){
+        String sFileName = text + ".mp3";
+        String sDirSeparator = System.getProperty("file.separator");
+        ApplicationStartUpPath startUpPath = new ApplicationStartUpPath();
+        String sFilePath = "";
+
+        try {
+            sFilePath = startUpPath.getApplicationStartUp() + sDirSeparator + sFileName;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        SendAudio sendMyAudio = new SendAudio();
+        sendMyAudio.setChatId(message.getChatId());
+        sendMyAudio.setNewAudio(new File(sFilePath));
+
+        try {
+            sendAudio(sendMyAudio);
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
