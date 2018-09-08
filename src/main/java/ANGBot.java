@@ -27,9 +27,9 @@ public class ANGBot extends TelegramLongPollingBot {
     private boolean     isGameEnded         = false;
     private boolean     isTaskTimer         = false;
     private boolean     isHintTimer         = false;
-    //private boolean     isBonusFiveUsed     = false;
-    //private boolean     isBonusTenUsed      = false;
-    //private boolean     isBonusFifteenUsed  = false;
+    private boolean     isBonusFiveUsed     = false;
+    private boolean     isBonusTenUsed      = false;
+    private boolean     isBonusFifteenUsed  = false;
     private String      adminPassword       = "password";
     private String      startCode           = "startcode";
     private int         startYear           = 2017;
@@ -119,9 +119,9 @@ public class ANGBot extends TelegramLongPollingBot {
                     String bonusFiveMinutes = tasksFile.getProperty("BONUS_FIVE_MINUTES");
                     String bonusTenMinutes = tasksFile.getProperty("BONUS_TEN_MINUTES");
                     String bonusFifteenMinutes = tasksFile.getProperty("BONUS_FIFTEEN_MINUTES");
-                    Boolean isBonusFiveUsed = gameDataList.get(index).isBonusFiveMinutes();
-                    Boolean isBonusTenUsed = gameDataList.get(index).isBonusTenMinutes();
-                    Boolean isBonusFifteenUsed = gameDataList.get(index).isBonusFifteenMinutes();
+                    //Boolean isBonusFiveUsed = gameDataList.get(index).isBonusFiveMinutes();
+                    //Boolean isBonusTenUsed = gameDataList.get(index).isBonusTenMinutes();
+                    //Boolean isBonusFifteenUsed = gameDataList.get(index).isBonusFifteenMinutes();
                     if (message.getText().equalsIgnoreCase(taskCode)){
                         sendMsg(message, "Вы ввели верный код");
                         int taskNumber = gameDataList.get(index).getTaskNumber() + 1;
@@ -148,19 +148,19 @@ public class ANGBot extends TelegramLongPollingBot {
                         int bonusTime = gameDataList.get(index).getBonusTime_min() + 5;
                         gameDataList.get(index).setBonusTime_min(bonusTime);
                         gameDataList.get(index).setBonusFiveMinutes(true);
-                        //isBonusFiveUsed = true;
+                        isBonusFiveUsed = true;
                         sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 5 минут.");
                     } else if (!isBonusTenUsed && message.getText().equalsIgnoreCase(bonusTenMinutes)){
                         int bonusTime = gameDataList.get(index).getBonusTime_min() + 5;
                         gameDataList.get(index).setBonusTime_min(bonusTime);
                         gameDataList.get(index).setBonusTenMinutes(true);
-                        //isBonusTenUsed = true;
+                        isBonusTenUsed = true;
                         sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 5 минут.");
                     } else if (!isBonusFifteenUsed && message.getText().equalsIgnoreCase(bonusFifteenMinutes)){
                         int bonusTime = gameDataList.get(index).getBonusTime_min() + 5;
                         gameDataList.get(index).setBonusTime_min(bonusTime);
                         gameDataList.get(index).setBonusFifteenMinutes(true);
-                        //isBonusFifteenUsed = true;
+                        isBonusFifteenUsed = true;
                         sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 5 минут.");
                     }
                 }
