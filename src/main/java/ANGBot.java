@@ -6,6 +6,7 @@ import java.time.ZoneId;
 import java.util.*;
 
 import org.telegram.telegrambots.api.methods.send.*;
+import org.telegram.telegrambots.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
@@ -37,11 +38,13 @@ public class ANGBot extends TelegramLongPollingBot {
     private int         startDay            = 16;
     private int         startHour           = 20;
     private int         startMinute         = 25;
-    private long        twentyMinutesMilli  = 1200000; //1200000
+    private long        twentyMinutesMilli  = 120000; //1200000 (20 мин)
+    private long        fiveMinutesMilli    = 30000;  //300000 (5 мин)
     private ZoneId      zoneId              = ZoneId.of("Europe/Moscow");
     private ArrayList<Long>     chatIdList          = new ArrayList<Long>();
     private ArrayList<GameData> gameDataList        = new ArrayList<GameData>();
     private ArrayList<Timer>    taskTimerList       = new ArrayList<Timer>();
+    private ArrayList<Timer>    alertTimerList      = new ArrayList<Timer>();
     private TasksAccess tasksAccess = new TasksAccess();
     private Properties tasksFile;
     //Keys for properties
@@ -130,6 +133,7 @@ public class ANGBot extends TelegramLongPollingBot {
                             gameDataList.get(index).setHintNumber(1);
                             gameDataList.get(index).setTaskTime();
                             taskTimerList.get(index).cancel();
+                            alertTimerList.get(index).cancel();
                             key = TASK + "_" + taskNumber;
                             sendMsg(message, tasksFile.getProperty(key));
                             String fileName = "task_" + taskNumber;
@@ -137,31 +141,35 @@ public class ANGBot extends TelegramLongPollingBot {
                             sendVid(message, fileName);
                             sendAud(message, fileName);
                             sendDoc(message, fileName + ".zip");
+                            isTaskTimer = true;
+                            isHintTimer = false;
                             taskTimerList.set(index, new Timer());
+                            alertTimerList.set(index, new Timer());
                             tasksTimer(message);
+                            alertsTimer(message);
                         } else {
                             gameDataList.get(index).setTaskTime();
                             taskTimerList.get(index).cancel();
                             gameOver(message);
                         }
-                    } else if (!isBonusFiveUsed && message.getText().equalsIgnoreCase(bonusFiveMinutes)){
-                        int bonusTime = gameDataList.get(index).getBonusTime_min() + 5;
+                    } else if (/*!isBonusFiveUsed &&*/ message.getText().equalsIgnoreCase(bonusFiveMinutes)){
+                        int bonusTime = gameDataList.get(index).getBonusTime_min() + 15;
                         gameDataList.get(index).setBonusTime_min(bonusTime);
                         gameDataList.get(index).setBonusFiveMinutes(true);
                         isBonusFiveUsed = true;
-                        sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 5 минут.");
-                    } else if (!isBonusTenUsed && message.getText().equalsIgnoreCase(bonusTenMinutes)){
-                        int bonusTime = gameDataList.get(index).getBonusTime_min() + 5;
+                        sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 15 минут.");
+                    } else if (/*!isBonusTenUsed &&*/ message.getText().equalsIgnoreCase(bonusTenMinutes)){
+                        int bonusTime = gameDataList.get(index).getBonusTime_min() + 15;
                         gameDataList.get(index).setBonusTime_min(bonusTime);
                         gameDataList.get(index).setBonusTenMinutes(true);
                         isBonusTenUsed = true;
-                        sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 5 минут.");
-                    } else if (!isBonusFifteenUsed && message.getText().equalsIgnoreCase(bonusFifteenMinutes)){
-                        int bonusTime = gameDataList.get(index).getBonusTime_min() + 5;
+                        sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 15 минут.");
+                    } else if (/*!isBonusFifteenUsed &&*/ message.getText().equalsIgnoreCase(bonusFifteenMinutes)){
+                        int bonusTime = gameDataList.get(index).getBonusTime_min() + 15;
                         gameDataList.get(index).setBonusTime_min(bonusTime);
                         gameDataList.get(index).setBonusFifteenMinutes(true);
                         isBonusFifteenUsed = true;
-                        sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 5 минут.");
+                        sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 15 минут.");
                     }
                 }
             }
@@ -230,6 +238,7 @@ public class ANGBot extends TelegramLongPollingBot {
         chatIdList.add(message.getChatId());
         gameDataList.add(new GameData(message.getChatId()));
         taskTimerList.add(new Timer());
+        alertTimerList.add(new Timer());
         getStartDateTime();
         legendTimer(message);
         startTimer(message);
@@ -279,6 +288,7 @@ public class ANGBot extends TelegramLongPollingBot {
                     gameDataList.get(index).setHintNumber(1);
                     isHintTimer = true;
                     tasksTimer(message);
+                    alertsTimer(message);
                 }
             }, new Date(presetTime));
         } catch (IllegalArgumentException e){
@@ -307,6 +317,7 @@ public class ANGBot extends TelegramLongPollingBot {
                             isTaskTimer = true;
                         }
                         tasksTimer(message);
+                        alertsTimer(message);
                     } else if (hintNumber == 3) {
                         int penaltyTime = gameDataList.get(index).getPenaltyTime_min() + 15;
                         gameDataList.get(index).setPenaltyTime_min(penaltyTime);
@@ -327,12 +338,37 @@ public class ANGBot extends TelegramLongPollingBot {
                             sendDoc(message, fileName + ".zip");
                             gameDataList.get(index).setTaskNumber(taskNumber);
                             tasksTimer(message);
+                            alertsTimer(message);
                         } else if (taskNumber == 8){
                             gameOver(message);
                         }
                     }
                 }
             }, twentyMinutesMilli);
+        } catch (IllegalArgumentException e){
+            sendMsg(message, "Ошибка создания таймера");
+        }
+    }
+
+    //Alert timer
+    private void alertsTimer(final Message message){
+        try{
+            long presetTime = twentyMinutesMilli - fiveMinutesMilli;
+            Timer alertTimer = alertTimerList.get(gameDataIndex(message));
+            alertTimer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    int index = gameDataIndex(message);
+                    int taskNumber = gameDataList.get(index).getTaskNumber();
+                    int hintNumber = gameDataList.get(index).getHintNumber();
+                    taskNumber++;
+                    if (isHintTimer) {
+                        sendMsg(message, "Осталось 5 минут до подсказки " + hintNumber);
+                    } else if (isTaskTimer) {
+                        sendMsg(message, "Осталось 5 минут до задания " + taskNumber);
+                    }
+                }
+            }, presetTime);
         } catch (IllegalArgumentException e){
             sendMsg(message, "Ошибка создания таймера");
         }
