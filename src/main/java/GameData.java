@@ -6,8 +6,10 @@ public class GameData {
     private int     hintNumber                  = 0;
     private int     totalTime                   = 0;
     private int     penaltyTime_min             = 0;
+    private int     friendCallPenalty           = 0;
     private int     bonusTime_min               = 0;
     private long    chatId;
+    private boolean isFriendCall                = false;
     private boolean isBonusFiveMinutes          = false;
     private boolean isBonusTenMinutes           = false;
     private boolean isBonusFifteenMinutes       = false;
@@ -30,6 +32,7 @@ public class GameData {
     public void setPenaltyTime_min(int value) {penaltyTime_min = value;}
     public void setBonusTime_min(int value) {bonusTime_min = value;}
     public void setChat_id(long value) {chatId = value;}
+    public void setFriendCall(boolean value) {isFriendCall = value;}
     public void setBonusFiveMinutes(boolean value) {isBonusFiveMinutes = value;}
     public void setBonusTenMinutes(boolean value) {isBonusTenMinutes = value;}
     public void setBonusFifteenMinutes(boolean value) {isBonusFifteenMinutes = value;}
@@ -40,6 +43,7 @@ public class GameData {
     public  int getPenaltyTime_min() {return  penaltyTime_min;}
     public int getBonusTime_min() {return bonusTime_min;}
     public  long getChat_id() {return  chatId;}
+    public boolean isFriendCall() {return  isFriendCall;}
     public boolean isBonusFiveMinutes() {return isBonusFiveMinutes;}
     public boolean isBonusTenMinutes() {return isBonusTenMinutes;}
     public boolean isBonusFifteenMinutes() {return isBonusFifteenMinutes;}
