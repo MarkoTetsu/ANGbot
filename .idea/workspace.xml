@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c8fa32e2-f3cc-4827-aaac-e37157574bbd" name="Default" comment="Добавил таймер, предупреждающий об окончании времени. Сделал бонусы доступными для всех команд.">
+    <list default="true" id="c8fa32e2-f3cc-4827-aaac-e37157574bbd" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ANGBot.java" afterPath="$PROJECT_DIR$/src/main/java/ANGBot.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/GameData.java" afterPath="$PROJECT_DIR$/src/main/java/GameData.java" />
@@ -30,21 +30,24 @@
       <file leaf-file-name="ANGBot.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/ANGBot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7012">
-              <caret line="367" column="69" lean-forward="false" selection-start-line="367" selection-start-column="69" selection-end-line="367" selection-end-column="69" />
+            <state relative-caret-position="3822">
+              <caret line="194" column="80" lean-forward="false" selection-start-line="194" selection-start-column="80" selection-end-line="194" selection-end-column="80" />
               <folding>
                 <element signature="e#2141#2147#0" expanded="true" />
                 <element signature="e#2218#2228#0" expanded="true" />
                 <element signature="e#2299#2306#0" expanded="true" />
                 <element signature="e#2377#2384#0" expanded="true" />
-                <element signature="e#16143#16472#0" expanded="true" />
-                <element signature="e#16471#16472#0" expanded="true" />
-                <element signature="e#17119#17843#0" expanded="true" />
-                <element signature="e#17842#17843#0" expanded="true" />
-                <element signature="e#18700#21437#0" expanded="true" />
-                <element signature="e#21436#21437#0" expanded="true" />
-                <element signature="e#22395#23272#0" expanded="true" />
-                <element signature="e#23271#23272#0" expanded="true" />
+                <element signature="e#2455#2462#0" expanded="true" />
+                <element signature="e#18273#18602#0" expanded="true" />
+                <element signature="e#18601#18602#0" expanded="true" />
+                <element signature="e#19249#19973#0" expanded="true" />
+                <element signature="e#19972#19973#0" expanded="true" />
+                <element signature="e#20813#24507#0" expanded="true" />
+                <element signature="e#24506#24507#0" expanded="true" />
+                <element signature="e#25399#26276#0" expanded="true" />
+                <element signature="e#26275#26276#0" expanded="true" />
+                <element signature="e#26764#27432#0" expanded="true" />
+                <element signature="e#27431#27432#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -53,8 +56,8 @@
       <file leaf-file-name="GameData.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/GameData.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="318">
-              <caret line="31" column="72" lean-forward="false" selection-start-line="31" selection-start-column="72" selection-end-line="31" selection-end-column="72" />
+            <state relative-caret-position="882">
+              <caret line="47" column="57" lean-forward="false" selection-start-line="47" selection-start-column="57" selection-end-line="47" selection-end-column="57" />
               <folding />
             </state>
           </provider>
@@ -73,8 +76,8 @@
       <file leaf-file-name="tasks.properties" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/tasks.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="4" column="16" lean-forward="true" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
+            <state relative-caret-position="189">
+              <caret line="9" column="18" lean-forward="false" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -102,8 +105,8 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/dependency-reduced-pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/GameData.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ANGBot.java" />
         <option value="$PROJECT_DIR$/src/main/resources/tasks.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/ANGBot.java" />
       </list>
     </option>
   </component>
@@ -152,9 +155,6 @@
     </navigator>
     <panes>
       <pane id="AndroidView" />
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -196,6 +196,9 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -410,7 +413,14 @@
       <option name="project" value="LOCAL" />
       <updated>1556297524277</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Добавил возможность задать время таймеров до первой и второй подсказки и до окончания задания&#10;Добавил проверку дополнительного кода, который вызывает первую подсказку&#10;Добавил команду /helpme, которая один раз за игру вызывает вторую подсказку текущего задания и начисляет штраф">
+      <created>1557586288795</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1557586288795</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -429,7 +439,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15416667" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1922619" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -444,6 +454,16 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -485,7 +505,8 @@
     <MESSAGE value="Игра 06.10.2018" />
     <MESSAGE value="Добавил таймер, предупреждающий об окончании времени. Баг из-за использования глобальных переменных (исправить)." />
     <MESSAGE value="Добавил таймер, предупреждающий об окончании времени. Сделал бонусы доступными для всех команд." />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавил таймер, предупреждающий об окончании времени. Сделал бонусы доступными для всех команд." />
+    <MESSAGE value="Добавил возможность задать время таймеров до первой и второй подсказки и до окончания задания&#10;Добавил проверку дополнительного кода, который вызывает первую подсказку&#10;Добавил команду /helpme, которая один раз за игру вызывает вторую подсказку текущего задания и начисляет штраф" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавил возможность задать время таймеров до первой и второй подсказки и до окончания задания&#10;Добавил проверку дополнительного кода, который вызывает первую подсказку&#10;Добавил команду /helpme, которая один раз за игру вызывает вторую подсказку текущего задания и начисляет штраф" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -517,14 +538,17 @@
             <element signature="e#2218#2228#0" expanded="true" />
             <element signature="e#2299#2306#0" expanded="true" />
             <element signature="e#2377#2384#0" expanded="true" />
-            <element signature="e#16143#16472#0" expanded="true" />
-            <element signature="e#16471#16472#0" expanded="true" />
-            <element signature="e#17119#17843#0" expanded="true" />
-            <element signature="e#17842#17843#0" expanded="true" />
-            <element signature="e#18700#21437#0" expanded="true" />
-            <element signature="e#21436#21437#0" expanded="true" />
-            <element signature="e#22395#23272#0" expanded="true" />
-            <element signature="e#23271#23272#0" expanded="true" />
+            <element signature="e#2455#2462#0" expanded="true" />
+            <element signature="e#18273#18602#0" expanded="true" />
+            <element signature="e#18601#18602#0" expanded="true" />
+            <element signature="e#19249#19973#0" expanded="true" />
+            <element signature="e#19972#19973#0" expanded="true" />
+            <element signature="e#20813#24507#0" expanded="true" />
+            <element signature="e#24506#24507#0" expanded="true" />
+            <element signature="e#25399#26276#0" expanded="true" />
+            <element signature="e#26275#26276#0" expanded="true" />
+            <element signature="e#26764#27432#0" expanded="true" />
+            <element signature="e#27431#27432#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -538,14 +562,17 @@
             <element signature="e#2218#2228#0" expanded="true" />
             <element signature="e#2299#2306#0" expanded="true" />
             <element signature="e#2377#2384#0" expanded="true" />
-            <element signature="e#16143#16472#0" expanded="true" />
-            <element signature="e#16471#16472#0" expanded="true" />
-            <element signature="e#17119#17843#0" expanded="true" />
-            <element signature="e#17842#17843#0" expanded="true" />
-            <element signature="e#18700#21437#0" expanded="true" />
-            <element signature="e#21436#21437#0" expanded="true" />
-            <element signature="e#22395#23272#0" expanded="true" />
-            <element signature="e#23271#23272#0" expanded="true" />
+            <element signature="e#2455#2462#0" expanded="true" />
+            <element signature="e#18273#18602#0" expanded="true" />
+            <element signature="e#18601#18602#0" expanded="true" />
+            <element signature="e#19249#19973#0" expanded="true" />
+            <element signature="e#19972#19973#0" expanded="true" />
+            <element signature="e#20813#24507#0" expanded="true" />
+            <element signature="e#24506#24507#0" expanded="true" />
+            <element signature="e#25399#26276#0" expanded="true" />
+            <element signature="e#26275#26276#0" expanded="true" />
+            <element signature="e#26764#27432#0" expanded="true" />
+            <element signature="e#27431#27432#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -598,14 +625,17 @@
             <element signature="e#2218#2228#0" expanded="true" />
             <element signature="e#2299#2306#0" expanded="true" />
             <element signature="e#2377#2384#0" expanded="true" />
-            <element signature="e#16143#16472#0" expanded="true" />
-            <element signature="e#16471#16472#0" expanded="true" />
-            <element signature="e#17119#17843#0" expanded="true" />
-            <element signature="e#17842#17843#0" expanded="true" />
-            <element signature="e#18700#21437#0" expanded="true" />
-            <element signature="e#21436#21437#0" expanded="true" />
-            <element signature="e#22395#23272#0" expanded="true" />
-            <element signature="e#23271#23272#0" expanded="true" />
+            <element signature="e#2455#2462#0" expanded="true" />
+            <element signature="e#18273#18602#0" expanded="true" />
+            <element signature="e#18601#18602#0" expanded="true" />
+            <element signature="e#19249#19973#0" expanded="true" />
+            <element signature="e#19972#19973#0" expanded="true" />
+            <element signature="e#20813#24507#0" expanded="true" />
+            <element signature="e#24506#24507#0" expanded="true" />
+            <element signature="e#25399#26276#0" expanded="true" />
+            <element signature="e#26275#26276#0" expanded="true" />
+            <element signature="e#26764#27432#0" expanded="true" />
+            <element signature="e#27431#27432#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -658,14 +688,17 @@
             <element signature="e#2218#2228#0" expanded="true" />
             <element signature="e#2299#2306#0" expanded="true" />
             <element signature="e#2377#2384#0" expanded="true" />
-            <element signature="e#16143#16472#0" expanded="true" />
-            <element signature="e#16471#16472#0" expanded="true" />
-            <element signature="e#17119#17843#0" expanded="true" />
-            <element signature="e#17842#17843#0" expanded="true" />
-            <element signature="e#18700#21437#0" expanded="true" />
-            <element signature="e#21436#21437#0" expanded="true" />
-            <element signature="e#22395#23272#0" expanded="true" />
-            <element signature="e#23271#23272#0" expanded="true" />
+            <element signature="e#2455#2462#0" expanded="true" />
+            <element signature="e#18273#18602#0" expanded="true" />
+            <element signature="e#18601#18602#0" expanded="true" />
+            <element signature="e#19249#19973#0" expanded="true" />
+            <element signature="e#19972#19973#0" expanded="true" />
+            <element signature="e#20813#24507#0" expanded="true" />
+            <element signature="e#24506#24507#0" expanded="true" />
+            <element signature="e#25399#26276#0" expanded="true" />
+            <element signature="e#26275#26276#0" expanded="true" />
+            <element signature="e#26764#27432#0" expanded="true" />
+            <element signature="e#27431#27432#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -718,14 +751,17 @@
             <element signature="e#2218#2228#0" expanded="true" />
             <element signature="e#2299#2306#0" expanded="true" />
             <element signature="e#2377#2384#0" expanded="true" />
-            <element signature="e#16143#16472#0" expanded="true" />
-            <element signature="e#16471#16472#0" expanded="true" />
-            <element signature="e#17119#17843#0" expanded="true" />
-            <element signature="e#17842#17843#0" expanded="true" />
-            <element signature="e#18700#21437#0" expanded="true" />
-            <element signature="e#21436#21437#0" expanded="true" />
-            <element signature="e#22395#23272#0" expanded="true" />
-            <element signature="e#23271#23272#0" expanded="true" />
+            <element signature="e#2455#2462#0" expanded="true" />
+            <element signature="e#18273#18602#0" expanded="true" />
+            <element signature="e#18601#18602#0" expanded="true" />
+            <element signature="e#19249#19973#0" expanded="true" />
+            <element signature="e#19972#19973#0" expanded="true" />
+            <element signature="e#20813#24507#0" expanded="true" />
+            <element signature="e#24506#24507#0" expanded="true" />
+            <element signature="e#25399#26276#0" expanded="true" />
+            <element signature="e#26275#26276#0" expanded="true" />
+            <element signature="e#26764#27432#0" expanded="true" />
+            <element signature="e#27431#27432#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -769,14 +805,17 @@
             <element signature="e#2218#2228#0" expanded="true" />
             <element signature="e#2299#2306#0" expanded="true" />
             <element signature="e#2377#2384#0" expanded="true" />
-            <element signature="e#16143#16472#0" expanded="true" />
-            <element signature="e#16471#16472#0" expanded="true" />
-            <element signature="e#17119#17843#0" expanded="true" />
-            <element signature="e#17842#17843#0" expanded="true" />
-            <element signature="e#18700#21437#0" expanded="true" />
-            <element signature="e#21436#21437#0" expanded="true" />
-            <element signature="e#22395#23272#0" expanded="true" />
-            <element signature="e#23271#23272#0" expanded="true" />
+            <element signature="e#2455#2462#0" expanded="true" />
+            <element signature="e#18273#18602#0" expanded="true" />
+            <element signature="e#18601#18602#0" expanded="true" />
+            <element signature="e#19249#19973#0" expanded="true" />
+            <element signature="e#19972#19973#0" expanded="true" />
+            <element signature="e#20813#24507#0" expanded="true" />
+            <element signature="e#24506#24507#0" expanded="true" />
+            <element signature="e#25399#26276#0" expanded="true" />
+            <element signature="e#26275#26276#0" expanded="true" />
+            <element signature="e#26764#27432#0" expanded="true" />
+            <element signature="e#27431#27432#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -820,14 +859,17 @@
             <element signature="e#2218#2228#0" expanded="true" />
             <element signature="e#2299#2306#0" expanded="true" />
             <element signature="e#2377#2384#0" expanded="true" />
-            <element signature="e#16143#16472#0" expanded="true" />
-            <element signature="e#16471#16472#0" expanded="true" />
-            <element signature="e#17119#17843#0" expanded="true" />
-            <element signature="e#17842#17843#0" expanded="true" />
-            <element signature="e#18700#21437#0" expanded="true" />
-            <element signature="e#21436#21437#0" expanded="true" />
-            <element signature="e#22395#23272#0" expanded="true" />
-            <element signature="e#23271#23272#0" expanded="true" />
+            <element signature="e#2455#2462#0" expanded="true" />
+            <element signature="e#18273#18602#0" expanded="true" />
+            <element signature="e#18601#18602#0" expanded="true" />
+            <element signature="e#19249#19973#0" expanded="true" />
+            <element signature="e#19972#19973#0" expanded="true" />
+            <element signature="e#20813#24507#0" expanded="true" />
+            <element signature="e#24506#24507#0" expanded="true" />
+            <element signature="e#25399#26276#0" expanded="true" />
+            <element signature="e#26275#26276#0" expanded="true" />
+            <element signature="e#26764#27432#0" expanded="true" />
+            <element signature="e#27431#27432#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -871,14 +913,17 @@
             <element signature="e#2218#2228#0" expanded="true" />
             <element signature="e#2299#2306#0" expanded="true" />
             <element signature="e#2377#2384#0" expanded="true" />
-            <element signature="e#16143#16472#0" expanded="true" />
-            <element signature="e#16471#16472#0" expanded="true" />
-            <element signature="e#17119#17843#0" expanded="true" />
-            <element signature="e#17842#17843#0" expanded="true" />
-            <element signature="e#18700#21437#0" expanded="true" />
-            <element signature="e#21436#21437#0" expanded="true" />
-            <element signature="e#22395#23272#0" expanded="true" />
-            <element signature="e#23271#23272#0" expanded="true" />
+            <element signature="e#2455#2462#0" expanded="true" />
+            <element signature="e#18273#18602#0" expanded="true" />
+            <element signature="e#18601#18602#0" expanded="true" />
+            <element signature="e#19249#19973#0" expanded="true" />
+            <element signature="e#19972#19973#0" expanded="true" />
+            <element signature="e#20813#24507#0" expanded="true" />
+            <element signature="e#24506#24507#0" expanded="true" />
+            <element signature="e#25399#26276#0" expanded="true" />
+            <element signature="e#26275#26276#0" expanded="true" />
+            <element signature="e#26764#27432#0" expanded="true" />
+            <element signature="e#27431#27432#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -965,37 +1010,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/GameData.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="31" column="72" lean-forward="false" selection-start-line="31" selection-start-column="72" selection-end-line="31" selection-end-column="72" />
+        <state relative-caret-position="882">
+          <caret line="47" column="57" lean-forward="false" selection-start-line="47" selection-start-column="57" selection-end-line="47" selection-end-column="57" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/tasks.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="4" column="16" lean-forward="true" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
+        <state relative-caret-position="189">
+          <caret line="9" column="18" lean-forward="false" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ANGBot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7012">
-          <caret line="367" column="69" lean-forward="false" selection-start-line="367" selection-start-column="69" selection-end-line="367" selection-end-column="69" />
+        <state relative-caret-position="3822">
+          <caret line="194" column="80" lean-forward="false" selection-start-line="194" selection-start-column="80" selection-end-line="194" selection-end-column="80" />
           <folding>
             <element signature="e#2141#2147#0" expanded="true" />
             <element signature="e#2218#2228#0" expanded="true" />
             <element signature="e#2299#2306#0" expanded="true" />
             <element signature="e#2377#2384#0" expanded="true" />
-            <element signature="e#16143#16472#0" expanded="true" />
-            <element signature="e#16471#16472#0" expanded="true" />
-            <element signature="e#17119#17843#0" expanded="true" />
-            <element signature="e#17842#17843#0" expanded="true" />
-            <element signature="e#18700#21437#0" expanded="true" />
-            <element signature="e#21436#21437#0" expanded="true" />
-            <element signature="e#22395#23272#0" expanded="true" />
-            <element signature="e#23271#23272#0" expanded="true" />
+            <element signature="e#2455#2462#0" expanded="true" />
+            <element signature="e#18273#18602#0" expanded="true" />
+            <element signature="e#18601#18602#0" expanded="true" />
+            <element signature="e#19249#19973#0" expanded="true" />
+            <element signature="e#19972#19973#0" expanded="true" />
+            <element signature="e#20813#24507#0" expanded="true" />
+            <element signature="e#24506#24507#0" expanded="true" />
+            <element signature="e#25399#26276#0" expanded="true" />
+            <element signature="e#26275#26276#0" expanded="true" />
+            <element signature="e#26764#27432#0" expanded="true" />
+            <element signature="e#27431#27432#0" expanded="true" />
           </folding>
         </state>
       </provider>
