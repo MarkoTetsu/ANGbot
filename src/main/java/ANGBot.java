@@ -192,7 +192,7 @@ public class ANGBot extends TelegramLongPollingBot {
                         alertTimerList.set(index, new Timer());
                         tasksTimer(message);
                         alertsTimer(message);
-                    } else if (message.getText().equalsIgnoreCase("/helpme12rw45") && !isFriendCall) {
+                    } else if (message.getText().equalsIgnoreCase("/helpme") && !isFriendCall) {
                         int penaltyTime = gameDataList.get(index).getPenaltyTime_min() + 15;
                         gameDataList.get(index).setPenaltyTime_min(penaltyTime);
                         gameDataList.get(index).setFriendCall(true);
@@ -211,7 +211,7 @@ public class ANGBot extends TelegramLongPollingBot {
                         alertTimerList.set(index, new Timer());
                         tasksTimer(message);
                         alertsTimer(message);
-                    } else if (message.getText().equalsIgnoreCase("/bonus12sf454") && !isBonusTask) {
+                    } else if (message.getText().equalsIgnoreCase("/bonus") && !isBonusTask) {
                         gameDataList.get(index).setBonusTask(true);
                         sendMsg(message, "Вы запросили бонусное задание. Бонусное задание будет отправлено после выполнения седьмого задания.");
                     } else if (message.getText().equalsIgnoreCase(bonusCode) && isBonusTaskStart) {
