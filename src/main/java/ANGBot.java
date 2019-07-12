@@ -25,7 +25,7 @@ public class ANGBot extends TelegramLongPollingBot {
     private boolean     isStartCodeCommand  = false;
     private boolean     isChatIdCommand     = false;
     private boolean     isGameStarted       = false;
-    private boolean     isGameEnded         = false;
+    //private boolean     isGameEnded         = false;
     private boolean     isTaskTimer         = false;
     private boolean     isHintTimer         = false;
     private boolean     isBonusFiveUsed     = false;
@@ -61,9 +61,9 @@ public class ANGBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         Message message = update.getMessage();
-
         LocalTime currentTime = LocalTime.now(zoneId);
         LocalDateTime currentDateTime = LocalDateTime.now(zoneId);
+
         // We check if the update has a message and the message has text
         if (message != null && message.hasText()){
 
@@ -117,8 +117,9 @@ public class ANGBot extends TelegramLongPollingBot {
             }
 
             if ((currentTime.getHour() >= startHour) || (currentTime.getHour() < 8)) {
-                if (isGameStarted && isChatInGame(message)){
-                    int index = gameDataIndex(message);
+                int index = gameDataIndex(message);
+                boolean isGameEnded = gameDataList.get(index).isGameEnded();
+                if (isGameStarted && isChatInGame(message) && !isGameEnded){
                     String key = TASK_CODE + "_" + gameDataList.get(index).getTaskNumber();
                     String taskCode = tasksFile.getProperty(key);
                     key = HINT_CODE + "_" + gameDataList.get(index).getTaskNumber();
@@ -136,7 +137,6 @@ public class ANGBot extends TelegramLongPollingBot {
                     //Boolean isBonusTenUsed = gameDataList.get(index).isBonusTenMinutes();
                     //Boolean isBonusFifteenUsed = gameDataList.get(index).isBonusFifteenMinutes();
                     if (message.getText().equalsIgnoreCase(taskCode)) {
-                        sendMsg(message, "Вы ввели верный код");
                         taskNumber = gameDataList.get(index).getTaskNumber() + 1;
                         if (taskNumber < 8) {
                             gameDataList.get(index).setTaskNumber(taskNumber);
@@ -146,6 +146,7 @@ public class ANGBot extends TelegramLongPollingBot {
                             alertTimerList.get(index).cancel();
                             key = TASK + "_" + taskNumber;
                             String fileName = "task_" + taskNumber;
+                            sendMsg(message, "Вы ввели верный код");
                             sendMsg(message, tasksFile.getProperty(key));
                             sendImg(message, fileName);
                             sendVid(message, fileName);
@@ -162,6 +163,7 @@ public class ANGBot extends TelegramLongPollingBot {
                                 gameDataList.get(index).setTaskTime();
                                 taskTimerList.get(index).cancel();
                                 alertTimerList.get(index).cancel();
+                                sendMsg(message, "Вы ввели верный код");
                                 sendMsg(message, tasksFile.getProperty("BONUS_TASK"));
                                 sendImg(message, "bonus_task");
                                 sendVid(message, "bonus_task");
@@ -170,10 +172,11 @@ public class ANGBot extends TelegramLongPollingBot {
                                 gameDataList.get(index).setBonusTaskStart(true);
                                 bonusTasksTimer(message);
                                 alertsTimer(message);
-                            } else {
+                            } else if (!isBonusTask) {
                                 gameDataList.get(index).setTaskTime();
                                 taskTimerList.get(index).cancel();
                                 alertTimerList.get(index).cancel();
+                                sendMsg(message, "Вы ввели верный код");
                                 gameOver(message);
                             }
                         }
@@ -554,9 +557,7 @@ public class ANGBot extends TelegramLongPollingBot {
         sendMsg(message, tasksSummary);
 
         //gameDataList.remove(index);
-        isHintTimer = false;
-        isTaskTimer = false;
-        isGameEnded = true;
+        gameDataList.get(index).setGameEnded(true);
     }
 
     public String timeString(long taskSeconds){

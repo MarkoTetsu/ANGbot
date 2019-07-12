@@ -12,6 +12,7 @@ public class GameData {
     private boolean isFriendCall                = false;
     private boolean isBonusTask                 = false;
     private boolean isBonusTaskStart            = false;
+    private boolean isGameEnded                 = false;
     private boolean isBonusFiveMinutes          = false;
     private boolean isBonusTenMinutes           = false;
     private boolean isBonusFifteenMinutes       = false;
@@ -37,6 +38,7 @@ public class GameData {
     public void setFriendCall(boolean value) {isFriendCall = value;}
     public void setBonusTask(boolean value) {isBonusTask = value;}
     public void setBonusTaskStart(boolean value) {isBonusTaskStart = value;}
+    public void setGameEnded(boolean value) {isGameEnded = value;}
     public void setBonusFiveMinutes(boolean value) {isBonusFiveMinutes = value;}
     public void setBonusTenMinutes(boolean value) {isBonusTenMinutes = value;}
     public void setBonusFifteenMinutes(boolean value) {isBonusFifteenMinutes = value;}
@@ -50,6 +52,7 @@ public class GameData {
     public boolean isFriendCall() {return  isFriendCall;}
     public boolean isBonusTask() {return  isBonusTask;}
     public boolean isBonusTaskStart() {return  isBonusTaskStart;}
+    public boolean isGameEnded() {return isGameEnded;}
     public boolean isBonusFiveMinutes() {return isBonusFiveMinutes;}
     public boolean isBonusTenMinutes() {return isBonusTenMinutes;}
     public boolean isBonusFifteenMinutes() {return isBonusFifteenMinutes;}
