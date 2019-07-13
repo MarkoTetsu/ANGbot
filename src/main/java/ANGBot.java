@@ -225,23 +225,23 @@ public class ANGBot extends TelegramLongPollingBot {
                         alertTimerList.get(index).cancel();
                         gameOver(message);
                     } else if (/*!isBonusFiveUsed &&*/ message.getText().equalsIgnoreCase(bonusFiveMinutes)){
-                        int bonusTime = gameDataList.get(index).getBonusTime_min() + 10;
+                        int bonusTime = gameDataList.get(index).getBonusTime_min() + 5;
                         gameDataList.get(index).setBonusTime_min(bonusTime);
                         gameDataList.get(index).setBonusFiveMinutes(true);
                         isBonusFiveUsed = true;
-                        sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 15 минут.");
+                        sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 5 минут.");
                     } else if (/*!isBonusTenUsed &&*/ message.getText().equalsIgnoreCase(bonusTenMinutes)){
-                        int bonusTime = gameDataList.get(index).getBonusTime_min() + 10;
+                        int bonusTime = gameDataList.get(index).getBonusTime_min() + 5;
                         gameDataList.get(index).setBonusTime_min(bonusTime);
                         gameDataList.get(index).setBonusTenMinutes(true);
                         isBonusTenUsed = true;
-                        sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 15 минут.");
+                        sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 5 минут.");
                     } else if (/*!isBonusFifteenUsed &&*/ message.getText().equalsIgnoreCase(bonusFifteenMinutes)){
-                        int bonusTime = gameDataList.get(index).getBonusTime_min() + 10;
+                        int bonusTime = gameDataList.get(index).getBonusTime_min() + 5;
                         gameDataList.get(index).setBonusTime_min(bonusTime);
                         gameDataList.get(index).setBonusFifteenMinutes(true);
                         isBonusFifteenUsed = true;
-                        sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 15 минут.");
+                        sendMsg(message, "Вы активировали бонусный код.\nОт итогового времени отнимется 5 минут.");
                     }
                 }
             }
