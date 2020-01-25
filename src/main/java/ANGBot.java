@@ -38,7 +38,7 @@ public class ANGBot extends TelegramLongPollingBot {
     private int         startDay            = 16;
     private int         startHour           = 20;
     private int         startMinute         = 25;
-    private int         tasksNumber         = 7;    //Количество заданий
+    private int         tasksNumber         = 3;    //Количество заданий
     private long        twentyMinutesMilli  = 1200000; //1200000 (20 мин)
     private long        fiveMinutesMilli    = 300000;  //300000 (5 мин)
     private ZoneId      zoneId              = ZoneId.of("Europe/Moscow");
@@ -139,7 +139,7 @@ public class ANGBot extends TelegramLongPollingBot {
                     //Boolean isBonusFifteenUsed = gameDataList.get(index).isBonusFifteenMinutes();
                     if (message.getText().equalsIgnoreCase(taskCode)) {
                         taskNumber = gameDataList.get(index).getTaskNumber() + 1;
-                        if (taskNumber < 8) {
+                        if (taskNumber < (tasksNumber + 1)) {
                             gameDataList.get(index).setTaskNumber(taskNumber);
                             gameDataList.get(index).setHintNumber(1);
                             gameDataList.get(index).setTaskTime();
@@ -217,7 +217,7 @@ public class ANGBot extends TelegramLongPollingBot {
                         alertsTimer(message);
                     } else if (message.getText().equalsIgnoreCase("/bonus") && !isBonusTask) {
                         gameDataList.get(index).setBonusTask(true);
-                        sendMsg(message, "Вы запросили бонусное задание. Бонусное задание будет отправлено после выполнения седьмого задания.");
+                        sendMsg(message, "Вы запросили бонусное задание. Бонусное задание будет отправлено после выполнения последнего задания.");
                     } else if (message.getText().equalsIgnoreCase(bonusCode) && isBonusTaskStart) {
                         int bonusTime = Integer.parseInt(tasksFile.getProperty("BONUS_TASK_TIME"));
                         bonusTime = bonusTime + gameDataList.get(index).getBonusTime_min();
