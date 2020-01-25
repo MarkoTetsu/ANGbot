@@ -38,6 +38,7 @@ public class ANGBot extends TelegramLongPollingBot {
     private int         startDay            = 16;
     private int         startHour           = 20;
     private int         startMinute         = 25;
+    private int         tasksNumber         = 7;    //Количество заданий
     private long        twentyMinutesMilli  = 1200000; //1200000 (20 мин)
     private long        fiveMinutesMilli    = 300000;  //300000 (5 мин)
     private ZoneId      zoneId              = ZoneId.of("Europe/Moscow");
@@ -416,7 +417,7 @@ public class ANGBot extends TelegramLongPollingBot {
                         isTaskTimer = false;
                         isHintTimer = true;
                         sendMsg(message, "Вы не нашли верный код.\nДобавлено штрафное время, 15 минут.");
-                        if (/*!isGameEnded &&*/ taskNumber < 8){
+                        if (/*!isGameEnded &&*/ taskNumber < (tasksNumber + 1)){
                             String fileName = "task_" + taskNumber;
                             sendImg(message, fileName);
                             sendVid(message, fileName);
@@ -427,7 +428,7 @@ public class ANGBot extends TelegramLongPollingBot {
                             gameDataList.get(index).setTaskNumber(taskNumber);
                             tasksTimer(message);
                             alertsTimer(message);
-                        } else if (taskNumber == 8){
+                        } else if (taskNumber == (tasksNumber + 1)){
                             boolean isBonusTask = gameDataList.get(index).isBonusTask();
                             if (isBonusTask){
                                 taskTimerList.get(index).cancel();
@@ -480,9 +481,9 @@ public class ANGBot extends TelegramLongPollingBot {
                     if (hintNumber > 0 && hintNumber < 3) {
                         sendMsg(message, "Осталось 5 минут до подсказки " + hintNumber);
                     } else if (hintNumber == 3) {
-                        if (taskNumber < 8) {
+                        if (taskNumber < (tasksNumber + 1)) {
                             sendMsg(message, "Осталось 5 минут до задания " + taskNumber);
-                        } else if (taskNumber == 8) {
+                        } else if (taskNumber == (tasksNumber + 1)) {
                             sendMsg(message, "Осталось 5 минут до конца игры!");
                         }
 
