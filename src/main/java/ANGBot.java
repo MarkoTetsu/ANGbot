@@ -38,9 +38,10 @@ public class ANGBot extends TelegramLongPollingBot {
     private int         startDay            = 16;
     private int         startHour           = 20;
     private int         startMinute         = 25;
-    private int         tasksNumber         = 3;    //Количество заданий
+    private int         tasksNumber         = 7;    //Количество заданий
     private long        twentyMinutesMilli  = 1200000; //1200000 (20 мин)
     private long        fiveMinutesMilli    = 300000;  //300000 (5 мин)
+    private long        gameAdminId         = 408226076; //Id администратора игры
     private ZoneId      zoneId              = ZoneId.of("Europe/Moscow");
     private ArrayList<Long>     chatIdList          = new ArrayList<Long>();
     private ArrayList<GameData> gameDataList        = new ArrayList<GameData>();
@@ -62,6 +63,7 @@ public class ANGBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         Message message = update.getMessage();
+        String myId = String.valueOf(update.getMessage().getFrom().getId());
         LocalTime currentTime = LocalTime.now(zoneId);
         LocalDateTime currentDateTime = LocalDateTime.now(zoneId);
 
@@ -87,10 +89,6 @@ public class ANGBot extends TelegramLongPollingBot {
                 sendMsg(message, sTime);
             }
 
-            if (message.getText().equalsIgnoreCase("/audio")){
-                sendAud(message, "task_1");
-            }
-
             if (message.getText().equalsIgnoreCase("/date")){
                 String sDate = currentDateTime.getDayOfMonth() + "." + addZero(currentDateTime.getMonthValue())
                         + "." + currentDateTime.getYear();
@@ -99,6 +97,18 @@ public class ANGBot extends TelegramLongPollingBot {
 
             if (message.getText().equalsIgnoreCase("/chatid")){
                 sendMsg(message, String.valueOf(message.getChatId()));
+            }
+
+            if (message.getText().equalsIgnoreCase("/pause") && gameAdminId == update.getMessage().getFrom().getId()){
+                if (!isGameStarted){
+                    sendMsg(message, "Игра еще не началась.");
+                } else {
+                    pauseGame(message);
+                }
+            }
+
+            if (message.getText().equalsIgnoreCase("/myname")){
+                sendMsg(message, myId);
             }
 
             if (message.getText().equalsIgnoreCase("/when")){
@@ -184,11 +194,11 @@ public class ANGBot extends TelegramLongPollingBot {
                     } else if (message.getText().equalsIgnoreCase(hintCode) && hintNumber == 1) {
                         key = HINT + "_" + taskNumber + "_" + hintNumber;
                         String fileName = "hint_" + taskNumber + "_" + hintNumber;
+                        sendMsg(message, tasksFile.getProperty(key));
                         sendImg(message, fileName);
                         sendVid(message, fileName);
                         sendAud(message, fileName);
                         sendDoc(message, fileName + ".zip");
-                        sendMsg(message, tasksFile.getProperty(key));
                         gameDataList.get(index).setHintNumber(2);
                         taskTimerList.get(index).cancel();
                         alertTimerList.get(index).cancel();
@@ -203,11 +213,11 @@ public class ANGBot extends TelegramLongPollingBot {
                         key = HINT + "_" + taskNumber + "_2";
                         sendMsg(message, "Вы запросили подсказку. Добавлено штрафное время, 15 мин.");
                         String fileName = "hint_" + taskNumber + "_2";
+                        sendMsg(message, tasksFile.getProperty(key));
                         sendImg(message, fileName);
                         sendVid(message, fileName);
                         sendAud(message, fileName);
                         sendDoc(message, fileName + ".zip");
-                        sendMsg(message, tasksFile.getProperty(key));
                         gameDataList.get(index).setHintNumber(3);
                         taskTimerList.get(index).cancel();
                         alertTimerList.get(index).cancel();
@@ -261,7 +271,7 @@ public class ANGBot extends TelegramLongPollingBot {
 
         if (!isAdminMode && isStartCommand){
             isStart = true;
-            sendMsg(message, "Здравствуйте, вас приветствует команда Alternative Night Game.");
+            sendMsg(message, "Здравствуйте, вас приветствует команда Филин квест.");
         } else {
             if (!isAdminMode && isChatIdCommand){
                 //sendMsg(message, String.valueOf(message.getChatId()));
@@ -419,12 +429,12 @@ public class ANGBot extends TelegramLongPollingBot {
                         sendMsg(message, "Вы не нашли верный код.\nДобавлено штрафное время, 15 минут.");
                         if (/*!isGameEnded &&*/ taskNumber < (tasksNumber + 1)){
                             String fileName = "task_" + taskNumber;
+                            String key = TASK + "_" + taskNumber;
+                            sendMsg(message, tasksFile.getProperty(key));
                             sendImg(message, fileName);
                             sendVid(message, fileName);
                             sendAud(message, fileName);
                             sendDoc(message, fileName + ".zip");
-                            String key = TASK + "_" + taskNumber;
-                            sendMsg(message, tasksFile.getProperty(key));
                             gameDataList.get(index).setTaskNumber(taskNumber);
                             tasksTimer(message);
                             alertsTimer(message);
@@ -518,6 +528,10 @@ public class ANGBot extends TelegramLongPollingBot {
         } catch (IllegalArgumentException e){
             sendMsg(message, "Ошибка создания таймера");
         }
+    }
+
+    private void pauseGame(Message message){
+
     }
 
     //Game End

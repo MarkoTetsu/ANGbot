@@ -8,7 +8,10 @@ public class GameData {
     private int     penaltyTime_min             = 0;
     private int     friendCallPenalty           = 0;
     private int     bonusTime_min               = 0;
+    private long    timerStartTime              = 0;
+    private long    timerEndTime                = 0;
     private long    chatId;
+    private boolean isGamePaused                = false;
     private boolean isFriendCall                = false;
     private boolean isBonusTask                 = false;
     private boolean isBonusTaskStart            = false;
@@ -34,7 +37,10 @@ public class GameData {
     public void setTotalTime(int value) {totalTime = value;}
     public void setPenaltyTime_min(int value) {penaltyTime_min = value;}
     public void setBonusTime_min(int value) {bonusTime_min = value;}
+    public void setTimerStartTime(long value) {timerStartTime = value;}
+    public void setTimerEndTime(long value) {timerEndTime = value;}
     public void setChat_id(long value) {chatId = value;}
+    public void setGamePaused(boolean value) {isGamePaused = value;}
     public void setFriendCall(boolean value) {isFriendCall = value;}
     public void setBonusTask(boolean value) {isBonusTask = value;}
     public void setBonusTaskStart(boolean value) {isBonusTaskStart = value;}
@@ -43,12 +49,15 @@ public class GameData {
     public void setBonusTenMinutes(boolean value) {isBonusTenMinutes = value;}
     public void setBonusFifteenMinutes(boolean value) {isBonusFifteenMinutes = value;}
 
-    public  int getTaskNumber() {return  taskNumber;}
-    public  int getHintNumber() {return hintNumber;}
-    public  int getTotalTime() {return totalTime;}
-    public  int getPenaltyTime_min() {return  penaltyTime_min;}
+    public int getTaskNumber() {return  taskNumber;}
+    public int getHintNumber() {return hintNumber;}
+    public int getTotalTime() {return totalTime;}
+    public int getPenaltyTime_min() {return  penaltyTime_min;}
     public int getBonusTime_min() {return bonusTime_min;}
-    public  long getChat_id() {return  chatId;}
+    public long getTimerStartTime() {return timerStartTime;}
+    public long getTimerEndTime() {return timerEndTime;}
+    public long getChat_id() {return  chatId;}
+    public boolean isGamePaused() {return isGamePaused;}
     public boolean isFriendCall() {return  isFriendCall;}
     public boolean isBonusTask() {return  isBonusTask;}
     public boolean isBonusTaskStart() {return  isBonusTaskStart;}
